@@ -83,7 +83,7 @@ router.post("/User", async (req, res) => {
   res.send(usuario);
 });
 
-router.get("/User", authAdmin, async (req, res) => {
+router.get("/", authAdmin, async (req, res) => {
   if (req.query.nombre) {
     return Usuario.find({
       nombre: { $regex: req.query.nombre },
@@ -92,7 +92,7 @@ router.get("/User", authAdmin, async (req, res) => {
   return Usuario.find().then((Usuarios) => res.send(Usuarios));
 });
 
-router.delete("/User/:email", authAdmin, async (req, res) => {
+router.delete("/:email", authAdmin, async (req, res) => {
   let comprobacion = await Usuario.findOne({ email: req.params.email }).then(
     (user) => {
       return user;
@@ -110,7 +110,7 @@ router.delete("/User/:email", authAdmin, async (req, res) => {
   res.send("Usuario eliminado");
 });
 
-router.put("/User/:email", async (req, res) => {
+router.put("/:email", async (req, res) => {
   let update = {};
   let token = req.headers["x-auth"];
   let decoded;
