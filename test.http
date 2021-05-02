@@ -1,4 +1,5 @@
 @host = http://localhost:3000
+const tokad=""
 
 POST  {{host}}/api/Recipe
 Content-Type: application/json
@@ -58,19 +59,36 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 ###
 
 GET {{host}}/api/Recipe
+Content-Type: application/json
+
+{
+    "ingredientes": ["Leche"],
+    "categoria": ["Desayuno"]
+}
+
+###
+
+GET {{host}}/api/Recipe
+Content-Type: application/json
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTc3ODUzfQ.Fn1Kzillf2wIY2RRJA1980KNO38OiRC26_lcBet5bTY
+
+{   
+    "correo": "ca@test.com"
+}
+###
+GET {{host}}/api/Recipe/608efbffe2f92453f4c83529
 
 
 ////////////////////////////////
 ###
 POST  {{host}}/api/User
 Content-Type: application/json
-x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTc3ODUzfQ.Fn1Kzillf2wIY2RRJA1980KNO38OiRC26_lcBet5bTY
 
-{ "username" : "Claudia",
-"email" : "c@test",
+{ "username" : "Carlos",
+"email" : "Ca@test",
 "password": "Hola123",
-"nombre": "Claudia",
-"apellido": "Santana" 
+"nombre": "Carlos",
+"apellido": "Gonzalez" 
 }
 
 ###
