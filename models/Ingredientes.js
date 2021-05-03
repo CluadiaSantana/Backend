@@ -13,13 +13,14 @@ let ingredienteSchema = mongoose.Schema({
 
 
 ingredienteSchema.statics.getIngredientes= async ()=>{
-    let docs = await Recipe.find({});
-    // console.log(docs);
+    let docs = await Ingrediente.find({});
+    console.log(docs);
     return docs;
 }
 
 let Ingrediente= mongoose.model('ingrediente',ingredienteSchema);
 
+Ingrediente.getIngredientes();
 
 
 module.exports=Ingrediente;
