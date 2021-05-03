@@ -1,6 +1,6 @@
 @host = http://localhost:3000
-const tokad=""
 
+###
 POST  {{host}}/api/Recipe
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
@@ -25,7 +25,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
     "receta": " Calienta el agua con la canela y cuando suelte el hervor, agrega el arroz Cocina",
     "categoria":["dificil","desayuno","niños"],
     "utencilios":["Plato","cuchara"],
-    "correo":"ca@test.com"
+    "correo":"c@test.com"
 }
 
 ###
@@ -83,6 +83,8 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 {   
     "correo": "ca@test.com"
 }
+
+
 ###
 GET {{host}}/api/Recipe
 Content-Type: application/json
@@ -100,24 +102,89 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI
 {   
     "correo": "ca@test.com"
 }
+
 ###
-GET {{host}}/api/Recipe/608f3ce6719e9447b0df5be6
+GET {{host}}/api/Recipe/608f4b086a91e63ec4046150
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 ###
-GET {{host}}/api/Recipe/608f3ce6719e9447b0df5be6
+GET {{host}}/api/Recipe/608f4b086a91e63ec4046150
 x-auth:
-###
-GET {{host}}/api/Recipe/608f3ce6719e9447b0df5254
-x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
+
 
 ###
-DELETE  {{host}}/api/Recipe/608f3ce6719e9447b0df5be6
+GET {{host}}/api/Recipe/608f4b086a91e63ec4046150
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
+
 ###
-DELETE {{host}}/api/Recipe/608f3ce6719e9447b0df5be6
+PUT {{host}}/api/Recipe/608f4b086a91e63ec4046150
+Content-Type: application/json
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
+
+{
+    "nombre": "Cereal chef ca",
+    "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Zucaritas", "cantidad": "50gr"},{"nombre":"Leche", "cantidad": "500ml"}],
+    "receta": " Revuelve todo",
+    "categoria":["dificil","desayuno","niños"],
+    "utencilios":["Plato","cuchara","Cuchillo"],
+    "correo":"Hola@test.com"
+}
+
+
+###
+PUT {{host}}/api/Recipe/608f4a0ec243b157344d9add
+Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+
+{
+    "nombre": "Cereal Actualizado chef",
+    "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Zucaritas", "cantidad": "50gr"},{"nombre":"Leche", "cantidad": "500ml"}],
+    "receta": " Revuelve todo",
+    "categoria":["dificil","desayuno","niños"],
+    "utencilios":["Plato","cuchara","Cuchillo"],
+    "correo":"Hola@test.com"
+}
+
+
+###
+PUT {{host}}/api/Recipe/608f4b086a91e63ec4046150
+Content-Type: application/json
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
+
+{
+    "nombre": "Cereal Actualizado1",
+    "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Zucaritas", "cantidad": "50gr"},{"nombre":"Leche", "cantidad": "500ml"}],
+    "receta": " Revuelve todo",
+    "categoria":["dificil","desayuno","niños"],
+    "utencilios":["Plato","cuchara","Cuchillo"],
+    "correo":"Hola@test.com"
+}
+
+###
+PUT {{host}}/api/Recipe/608f4b086a91e63ec4046155
+Content-Type: application/json
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+
+{
+    "nombre": "Cereal Actualizado1",
+    "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Zucaritas", "cantidad": "50gr"},{"nombre":"Leche", "cantidad": "500ml"}],
+    "receta": " Revuelve todo",
+    "categoria":["dificil","desayuno","niños"],
+    "utencilios":["Plato","cuchara","Cuchillo"],
+    "correo":"Hola@test.com"
+}
+###
+DELETE  {{host}}/api/Recipe/608f4b086a91e63ec4046150
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+
+###
+DELETE {{host}}/api/Recipe/608f4a0ec243b157344d9add
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+
+
+
+
 ////////////////////////////////
 ###
 POST  {{host}}/api/User

@@ -49,7 +49,7 @@ recipeSchema.statics.guardarrecipe= async (newrecipe)=>{
 recipeSchema.statics.getRecipe= async (filtro)=>{
     console.log(filtro);
     let docs = await Recipe.find(filtro,{'ingredientes._id':0})
-    console.log(docs);
+    // console.log(docs);
     return docs;
 }
 
@@ -61,7 +61,7 @@ recipeSchema.statics.updateRecipe = async function(_id, receta ){
     return doc;
 }
 
-recipeSchema.statics.deleteRecipe = async function(_id, receta ){
+recipeSchema.statics.deleteRecipe = async function(_id ){
     await Recipe.findOneAndDelete(
            {_id});
     return;

@@ -119,15 +119,21 @@ router.put('/:id', async (req,res)=>{
     let token = req.headers["x-auth"];
     let us=authPer(token);
     console.log(us);
+    let receta = await Recipe.getRecipe({_id : req.params.id});
     if(us[0]!="admin"){
-        let receta = await Recipe.getRecipe({_id : req.params.id});
         if(us[1]!=receta.correo){
             res.status(401).send({error: "Usuario no autorizado"})
         return
         } 
         }else{
-            let doc= await Recipe.updateRecipe(req.params.id,req.body);
+            if(!receta[0]){
+                res.status(404).send({error: "No se encontro la receta a actualizar"})
+                return;
+            }else{
+                let {nombre,ingredientes,receta, categoria, utencilios,url}= req.body;
+            let doc= await Recipe.updateRecipe(req.params.id,{nombre,ingredientes,receta, categoria, utencilios,url});
             res.send(doc);
+            }
         }
 })
 
@@ -135,17 +141,20 @@ router.delete('/:id', async (req,res)=>{
     let token = req.headers["x-auth"];
     let us=authPer(token);
     console.log(us);
+    let receta = await Recipe.getRecipe({_id : req.params.id});
     if(us[0]!="admin"){
-        let receta = await Recipe.getRecipe({_id : req.params.id});
-        if(!receta){
-            res.status(404).send({error: "Receta no encontrada"});
-        }
         if(us[1]!=receta.correo){
             res.status(401).send({error: "Usuario no autorizado"});
         return
-        } 
-        }else{
-            let doc= await Recipe.deleteRecipe(req.params.id);
         }
+    } 
+    if(!receta[0]){
+        res.status(404).send({error: "Receta no encontrada"});
+        return
+    }else{
+        await Recipe.deleteRecipe(req.params.id);
+        res.status(200).send({alert: "Se ha eliminado"});
+        return
+    }
 })
 module.exports = router;
