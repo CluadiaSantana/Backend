@@ -1,6 +1,7 @@
 @host = http://localhost:3000
 
 ###
+//post correcto
 POST  {{host}}/api/Recipe
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
@@ -15,6 +16,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 }
 
 ###
+//post con algun dato faltante
 POST  {{host}}/api/Recipe
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
@@ -23,21 +25,21 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
     "nombre": "Cereal",
     "ingredientes":[{"nombre":"Zucaritas", "cantidad": "50gr"},{"nombre":"Leche", "cantidad": "500ml"}],
     "receta": " Calienta el agua con la canela y cuando suelte el hervor, agrega el arroz Cocina",
-    "categoria":["dificil","desayuno","niños"],
     "utencilios":["Plato","cuchara"],
     "correo":"c@test.com"
 }
 
 ###
+//post usuario regular
 POST  {{host}}/api/Recipe
 Content-Type: application/json
-x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 {
     "nombre": "Licuado",
     "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Canela", "cantidad": "1pz"},{"nombre":"Leche", "cantidad": "500ml"}],
     "receta": " Calienta el agua con la canela y cuando suelte el hervor, agrega el arroz Cocina",
-    "categoria":["mediano","desayuno"],
+    "categoria":["Desayuno","niños"],
     "correo":"ca@test.com"
 }
 
@@ -56,17 +58,17 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 }
 
 ###
-
+//get si encuentra
 GET {{host}}/api/Recipe
 Content-Type: application/json
 
 {
-    "ingredientes": ["Leche"],
-    "categoria": ["Desayuno"]
+    "ingredientes": ["Leche","Zucaritas"],
+    "categoria": ["Desayuno","mediano"]
 }
 
 ###
-
+//get de receta que no existe
 GET {{host}}/api/Recipe
 Content-Type: application/json
 
@@ -76,6 +78,7 @@ Content-Type: application/json
 }
 ###
 
+//get de correo como administrador
 GET {{host}}/api/Recipe
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
@@ -86,6 +89,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 
 
 ###
+//get correo que no es el suyo
 GET {{host}}/api/Recipe
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
@@ -93,8 +97,17 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmU
 {   
     "correo": "c@test.com"
 }
-
 ###
+//get correo que no es el suyo
+GET {{host}}/api/Recipe
+Content-Type: application/json
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
+
+{   
+    "correo": "Ca@test"
+}
+###
+//get como regular
 GET {{host}}/api/Recipe
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
@@ -104,21 +117,23 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI
 }
 
 ###
-GET {{host}}/api/Recipe/608f4b086a91e63ec4046150
+//get id
+GET {{host}}/api/Recipe/608f541300f687125c3c341a
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 ###
-GET {{host}}/api/Recipe/608f4b086a91e63ec4046150
+GET {{host}}/api/Recipe/608f541300f687125c3c341a
 x-auth:
 
 
 ###
-GET {{host}}/api/Recipe/608f4b086a91e63ec4046150
+GET {{host}}/api/Recipe/608f541300f687125c3c341a
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 
 ###
-PUT {{host}}/api/Recipe/608f4b086a91e63ec4046150
+//put de una receta no propia
+PUT {{host}}/api/Recipe/608f541300f687125c3c341a
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
 
@@ -131,11 +146,15 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmU
     "correo":"Hola@test.com"
 }
 
+###
+GET {{host}}/api/Recipe/608f4f103803b362743b00c2
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 ###
-PUT {{host}}/api/Recipe/608f4a0ec243b157344d9add
+//put de receta propia
+PUT {{host}}/api/Recipe/608f4f103803b362743b00c2
 Content-Type: application/json
-x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
 
 {
     "nombre": "Cereal Actualizado chef",
@@ -148,9 +167,10 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 
 
 ###
-PUT {{host}}/api/Recipe/608f4b086a91e63ec4046150
+//put  admin
+PUT {{host}}/api/Recipe/608f541300f687125c3c341a
 Content-Type: application/json
-x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
 
 {
     "nombre": "Cereal Actualizado1",
@@ -162,6 +182,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmU
 }
 
 ###
+//put receta no existente
 PUT {{host}}/api/Recipe/608f4b086a91e63ec4046155
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
@@ -175,11 +196,13 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
     "correo":"Hola@test.com"
 }
 ###
-DELETE  {{host}}/api/Recipe/608f4b086a91e63ec4046150
-x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+//delete con usuatio no admin
+DELETE  {{host}}/api/Recipe/608f541300f687125c3c341a
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
 
 ###
-DELETE {{host}}/api/Recipe/608f4a0ec243b157344d9add
+//delete admin
+DELETE {{host}}/api/Recipe/608f541300f687125c3c341a
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
 
 
