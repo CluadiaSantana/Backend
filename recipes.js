@@ -5,6 +5,7 @@ const Recipe = require("./models/Recipe");
 const jwt = require("jsonwebtoken");
 const { route } = require("./users");
 const { restart } = require("nodemon");
+const { test } = require("./middlewares/logs");
 
 const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
 
@@ -121,20 +122,21 @@ router.put('/:id', async (req,res)=>{
     console.log(us);
     let receta = await Recipe.getRecipe({_id : req.params.id});
     if(us[0]!="admin"){
-        if(us[1]!=receta.correo){
+        let e=receta[0].correo.includes(us[1]);
+        if(!e){
+            console.log(receta[0].correo.includes(us[1]));
             res.status(401).send({error: "Usuario no autorizado"})
-        return
+            return
         } 
-        }else{
-            if(!receta[0]){
-                res.status(404).send({error: "No se encontro la receta a actualizar"})
-                return;
-            }else{
-                let {nombre,ingredientes,receta, categoria, utencilios,url}= req.body;
-            let doc= await Recipe.updateRecipe(req.params.id,{nombre,ingredientes,receta, categoria, utencilios,url});
-            res.send(doc);
-            }
-        }
+    }
+    if(!receta[0]){
+        res.status(404).send({error: "No se encontro la receta a actualizar"})
+           return;
+    }else{
+        let {nombre,ingredientes,receta, categoria, utencilios,url}= req.body;
+        let doc= await Recipe.updateRecipe(req.params.id,{nombre,ingredientes,receta, categoria, utencilios,url});
+        res.send(doc);
+    }
 })
 
 router.delete('/:id', async (req,res)=>{

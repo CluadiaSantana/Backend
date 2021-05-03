@@ -157,7 +157,7 @@ Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmUiOiJDYXJsb3MgR29uemFsZXoiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjE5OTk5ODIxfQ.lnLp8XfOowauTgypiIVNkaFt31nrtQ1zXSI1HVBGL0U
 
 {
-    "nombre": "Cereal Actualizado chef",
+    "nombre": "Cereal actualizado",
     "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Zucaritas", "cantidad": "50gr"},{"nombre":"Leche", "cantidad": "500ml"}],
     "receta": " Revuelve todo",
     "categoria":["dificil","desayuno","niños"],
@@ -168,12 +168,12 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmU
 
 ###
 //put  admin
-PUT {{host}}/api/Recipe/608f541300f687125c3c341a
+PUT {{host}}/api/Recipe/608f4f103803b362743b00c2
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
 
 {
-    "nombre": "Cereal Actualizado1",
+    "nombre": "Cereal admin",
     "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Zucaritas", "cantidad": "50gr"},{"nombre":"Leche", "cantidad": "500ml"}],
     "receta": " Revuelve todo",
     "categoria":["dificil","desayuno","niños"],
