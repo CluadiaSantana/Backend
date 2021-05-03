@@ -23,24 +23,22 @@ function authUser(req, res, next) {
   next();
 }
 
-function authAdmin(req, res, next) {
+async function authAdmin(req, res, next) {
   let token = req.headers["x-auth"];
   if (!token)
     return res
       .status(401)
       .send("Usuario no autenticado, utiliza el header 'x-auth'");
-
   let decoded;
   try {
     decoded = jwt.verify(token, secret);
   } catch (err) {
     return res.status(401).send("Token invalido");
   }
-  if (decoded.rol == "admin") {
-    req.decoded = decoded;
-    return next();
-  }
-  return res.status(401).send("Usuario no autorizado");
+  let admin = await Usuario.findOne({ email: decoded.email });
+  if (!admin || admin.rol != "admin")
+    return res.status(401).send("Usuario no autorizado");
+  next();
 }
 
 router.post("/", async (req, res) => {
@@ -106,7 +104,9 @@ router.delete("/:email", authAdmin, async (req, res) => {
       // deleted at most one tank document
     }
   );
-  if (err) return res.status(400).send("Hubo un error al eliminar");
+  if (err.ok != 1) {
+    return res.status(400).send("hubo un error al eliminar");
+  }
   res.send("Usuario eliminado");
 });
 
@@ -125,9 +125,14 @@ router.put("/:email", async (req, res) => {
     if (req.body.rol) update.rol = req.body.rol;
     if (req.body.password)
       update.password = bcrypt.hashSync(req.body.password, 10);
-    (
-      await Usuario.findOneAndUpdate({ email: req.params.email }, update)
-    ).save();
+
+    let user = await Usuario.findOneAndUpdate(
+      { email: req.params.email },
+      update
+    );
+    if (!user) return res.status(404).send("Usuario no encontrado");
+    user.save();
+
     return res.send("usuario actualizado");
   }
   if (decoded.email != req.params.email)
@@ -139,6 +144,7 @@ router.put("/:email", async (req, res) => {
     update.password = bcrypt.hashSync(req.body.password, 10);
 
   Usuario.findOneAndUpdate({ email: req.params.email }, update).then((user) => {
+    console.log(user);
     if (!user) return res.status(404).send("Usuario no encontrado");
     user.save();
     res.send("Usuario actualizado");

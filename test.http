@@ -209,6 +209,10 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 
 GET {{host}}/api/Ingrediente
 
+###
+
+GET {{host}}/api/Utensilio
+
 ////////////////////////////////
 ###
 POST  {{host}}/api/User
