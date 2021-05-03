@@ -4,6 +4,7 @@ const path = require('path')
 const Recipe = require("./models/Recipe");
 const jwt = require("jsonwebtoken");
 const { route } = require("./users");
+const { restart } = require("nodemon");
 
 const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
 
@@ -12,7 +13,7 @@ function authPer(token) {
     try {
       decoded = jwt.verify(token, secret);
     } catch (err) {
-      return status(401).send("Token invalido");
+      return 
     }
     let reg=[];
     reg.push(decoded.rol);
@@ -64,7 +65,12 @@ router.get('/', async(req,res)=>{
     }
     console.log(filtro);
     let lista= await Recipe.getRecipe(filtro);
-    res.send(lista);
+    if(lista[0]){
+        res.status(200).send(lista);
+        return;
+    }else{
+        res.status(404).send({error: "No se encontro ninguna receta"})
+    }
 })
 
 router.post('/', async(req,res)=>{
@@ -93,8 +99,20 @@ router.post('/', async(req,res)=>{
 
 router.get('/:id', async(req,res)=>{
     console.log(req.params.id);
+    let token = req.headers["x-auth"];
+    let us=authPer(token);
+    console.log(us);
+    if(!us){
+        res.status(401).send({error: "Usuario no ingresado"})
+        return
+    }
     let doc = await Recipe.getRecipe({_id : req.params.id});
-    res.send(doc) 
+    if(doc[0]){
+        res.status(200).send(doc);
+        return;
+    }else{
+        res.status(404).send({error: "No se encontro ninguna receta"})
+    }
 })
 
 router.put('/:id', async (req,res)=>{

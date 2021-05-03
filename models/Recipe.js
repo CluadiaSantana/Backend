@@ -30,11 +30,6 @@ let recipeSchema = mongoose.Schema({
     }
 })
 
-// productSchema.statics.getrecipes= async (filtro)=> {
-//     return await recipeShecma.find({filtro, });
-// }
-
-
 
 
 recipeSchema.statics.guardarrecipe= async (newrecipe)=>{
@@ -99,11 +94,11 @@ let Recipe= mongoose.model('recipe',recipeSchema);
 //     }
 // )
 
-Recipe.getRecipe({_id:"608efbffe2f92453f4c83529"})
+// Recipe.getRecipe({_id:"608efbffe2f92453f4c83529"})
 
-Recipe.deleteRecipe({_id:"608efbffe2f92453f4c83529"})
+// Recipe.deleteRecipe({_id:"608efbffe2f92453f4c83529"})
 
-Recipe.getRecipe({_id:"608efbffe2f92453f4c83529"})
+// Recipe.getRecipe({_id:"608efbffe2f92453f4c83529"})
 
 
 module.exports=Recipe;

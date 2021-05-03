@@ -43,7 +43,7 @@ function authAdmin(req, res, next) {
   return res.status(401).send("Usuario no autorizado");
 }
 
-router.post("/User", async (req, res) => {
+router.post("/", async (req, res) => {
   let { username, email, password, nombre, apellido } = req.body;
   var faltantes = [];
   if (!username) faltantes.push("Usuario");
