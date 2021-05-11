@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use(log, test);
-app.use(express.static(__dirname+'/public'))
+app.use(express.static(__dirname+'/public/index'))
 app.use("/api/User", users);
 app.use("/api/Recipe", recipes);
 
