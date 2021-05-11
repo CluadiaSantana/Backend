@@ -6,14 +6,16 @@ const {log, test} = require('./middlewares/logs')
 var Consignador = require("./models/User");
 const Ingrediente = require("./models/Ingredientes");
 const Utensilio = require("./models/Utensilios");
-
+const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
+
+app.use(cors())
 
 app.use(express.json());
 
 app.use(log, test);
-app.use(express.static(__dirname+'/public'))
+app.use(express.static(__dirname+'/public/index'))
 app.use("/api/User", users);
 app.use("/api/Recipe", recipes);
 

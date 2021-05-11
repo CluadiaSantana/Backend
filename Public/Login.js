@@ -16,7 +16,7 @@ entrar.addEventListener("click", async function(e){
     let resp= await fetch("http://127.0.0.1:3000/api/User/Login",{
         method: 'POST',
         headers:{'Content-Type': 'application/json'},
-        mode: 'no-cors',
+       // mode: 'no-cors',
         body: imp
     });
     console.log(resp.status);
@@ -24,7 +24,6 @@ entrar.addEventListener("click", async function(e){
         let token= await resp.json();
         // guardar el token del usuario
         sessionStorage.token=token.token;
-        log('inicio sesion');
         //llevar a la de inicio
         window.location.href="Index.html";
     }else{
