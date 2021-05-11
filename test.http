@@ -244,7 +244,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{host}}/api/User/Login
+POST http://localhost:3000/api/User/Login
 Content-Type: application/json
 
 { 

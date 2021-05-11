@@ -16,7 +16,7 @@ utensilioSchema.statics.getUtensilio= async ()=>{
 
 let Utensilio= mongoose.model('utensilio',utensilioSchema);
 
-Utensilio.getUtensilio();
+//Utensilio.getUtensilio();
 
 
 module.exports=Utensilio;

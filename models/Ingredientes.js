@@ -20,7 +20,7 @@ ingredienteSchema.statics.getIngredientes= async ()=>{
 
 let Ingrediente= mongoose.model('ingrediente',ingredienteSchema);
 
-Ingrediente.getIngredientes();
+//Ingrediente.getIngredientes();
 
 
 module.exports=Ingrediente;
