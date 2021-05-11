@@ -152,6 +152,11 @@
         #ingredientes{
             width: 300px;
         }
+
+        .oculto{
+        display: none;
+        }
+
     </style>
 </head>
 
@@ -248,128 +253,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td width="10px">#1</td>  
-                            <td>Enchiladas de papa con queso</td>
-                            <td>Mexicana</td>
-                            <td id="ingredientes">
-                                <ul>
-                                    <li>4 papas medianas</li>
-                                    <li>400 gramos de queso Oaxaca</li>
-                                    <li>¼ de kilo de tortillas de maíz</li>
-                                    <li>800 gramos de puré de tomate</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Sarten</li>
-                                    <li>Licuadora</li>
-                                    <li>Bowl mediano</li>
-                                    <li>Paleta</li>                                   
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Rapidas</li>
-                                    <li>Favoritos</li>
-                                    <li>Con Tortilla</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <img class="brand-logo-light"
-                            src="https://entrecampeonas.com/wp-content/uploads/2019/04/shutterstock_1188434974-1-780x405.jpg"
-                            alt="" width="140">
-                            </td>
-                            <td width="50px">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-                                    <a class="btn-sm btn-primary text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-                                    <a class="confirmation btn-sm btn-danger text-center" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="10px">#2</td>  
-                            <td>Enchiladas de papa con queso</td>
-                            <td>Mexicana</td>
-                            <td>
-                                <ul>
-                                    <li>4 papas medianas</li>
-                                    <li>400 gramos de queso Oaxaca</li>
-                                    <li>¼ de kilo de tortillas de maíz</li>
-                                    <li>800 gramos de puré de tomate</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Sarten</li>
-                                    <li>Licuadora</li>
-                                    <li>Bowl mediano</li>
-                                    <li>Paleta</li>                                   
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Rapidas</li>
-                                    <li>Favoritos</li>
-                                    <li>Con Tortilla</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <img class="brand-logo-light"
-                            src="https://entrecampeonas.com/wp-content/uploads/2019/04/shutterstock_1188434974-1-780x405.jpg"
-                            alt="" width="140">
-                            </td>
-                            <td width="50px">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-                                    <a class="btn-sm btn-primary text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-                                    <a class="confirmation btn-sm btn-danger text-center" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="10px">#3</td>  
-                            <td>Enchiladas de papa con queso</td>
-                            <td>Mexicana</td>
-                            <td>
-                                <ul>
-                                    <li>4 papas medianas</li>
-                                    <li>400 gramos de queso Oaxaca</li>
-                                    <li>¼ de kilo de tortillas de maíz</li>
-                                    <li>800 gramos de puré de tomate</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Sarten</li>
-                                    <li>Licuadora</li>
-                                    <li>Bowl mediano</li>
-                                    <li>Paleta</li>                                   
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Rapidas</li>
-                                    <li>Favoritos</li>
-                                    <li>Con Tortilla</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <img class="brand-logo-light" src="https://entrecampeonas.com/wp-content/uploads/2019/04/shutterstock_1188434974-1-780x405.jpg" alt="" width="140">
-                            </td>
-                            <td width="50px">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-                                    <a class="btn-sm btn-primary text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-                                    <a class="confirmation btn-sm btn-danger text-center" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        
-                       
+                    <tbody id="listarecetas">
                     </tbody>
                 </table>
             </div>
@@ -472,17 +356,6 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Usuario</label>
-                                    </div>
-                                    <select class="custom-select" id="inputGroupSelect01">
-                                        <option >Seleccionar usuario...</option>
-                                        <option value="1"selected>Arturo Corona</option>
-                                        <option value="2">Claudia Santana</option>
-                                        <option value="3" >Luis Ramos</option>
-                                    </select>
-                                </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group mb-3">
@@ -587,20 +460,72 @@
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Usuario</label>
+                                        <label class="input-group-text" for="inputGroupSelect01">Categoría 1</label>
                                     </div>
-                                    <select class="custom-select" id="inputGroupSelect01">
-                                        <option selected >Seleccionar usuario...</option>
-                                        <option value="1">Arturo Corona</option>
-                                        <option value="2">Claudia Santana</option>
-                                        <option value="3" >Luis Ramos</option>
+                                    <select class="custom-select" id="cat1">
+                                        <option selected>Seleccionar...</option>
+                                        <option value="1">Ensaladas</option>
+                                        <option value="2">Mexicana</option>
+                                        <option value="3">Cortes</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
+                                        <label class="input-group-text" for="inputGroupSelect01">Categoría 2</label>
+                                    </div>
+                                    <select class="custom-select" id="cat2">
+                                        <option selected>Seleccionar...</option>
+                                        <option value="1">Ensaladas</option>
+                                        <option value="2">Mexicana</option>
+                                        <option value="3">Cortes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Categoría 3</label>
+                                    </div>
+                                    <select class="custom-select" id="cat3">
+                                        <option selected>Seleccionar...</option>
+                                        <option value="1">Ensaladas</option>
+                                        <option value="2">Mexicana</option>
+                                        <option value="3">Cortes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 1</label>
+                                    </div>
+                                    <select class="custom-select" id="ut1">
+                                        <option selected>Seleccionar...</option>
+                                        <option value="1">Ensaladas</option>
+                                        <option value="2">Mexicana</option>
+                                        <option value="3">Cortes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 2</label>
+                                    </div>
+                                    <select class="custom-select" id="ut1">
+                                        <option selected>Seleccionar...</option>
+                                        <option value="1">Ensaladas</option>
+                                        <option value="2">Mexicana</option>
+                                        <option value="3">Cortes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 3</label>
                                     </div>
                                     <select class="custom-select" id="inputGroupSelect01">
                                         <option selected>Seleccionar...</option>
@@ -610,12 +535,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Escribe tus Utencilios separadas por comas" id="floatingTextarea2" style="height: 100px"></textarea>
-                                    <label for="floatingTextarea2">Utencilios</label>
-                                </div>
-                            </div>
+                            
                             <div class="col-6">
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="Escribe tus ingredientes separadas por comas" id="floatingTextarea2" style="height: 100px"></textarea>

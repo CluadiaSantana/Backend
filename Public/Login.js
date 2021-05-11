@@ -2,7 +2,7 @@ sessionStorage.token;
 
 //logear usuario
 let datos=document.querySelector('#datoslogin');
-let entrar=datos.querySelector('#entrar');
+let entrar=datos.querySelector('#Entrar');
 
 
 entrar.addEventListener("click", async function(e){

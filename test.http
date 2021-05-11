@@ -62,10 +62,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 GET {{host}}/api/Recipe
 Content-Type: application/json
 
-{
-    "ingredientes": ["Leche","Zucaritas"],
-    "categoria": ["Desayuno","mediano"]
-}
+
 
 ###
 //get de receta que no existe
