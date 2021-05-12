@@ -59,7 +59,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 
 ###
 //get si encuentra
-GET {{host}}/api/Recipe
+GET http://127.0.0.1:3000/api/Recipe
 Content-Type: application/json
 
 

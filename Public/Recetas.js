@@ -1,9 +1,14 @@
 function log(val) { console.log("726396",val); }
 let recetas=[];
 
-async function load(){
+async function load(pg){
+    if(pg==undefined){
+        sk=0;
+    }else{
+        sk=pg*6
+    }
     //pedir los datos con fetch
-    let resp= await fetch("http://127.0.0.1:3000//api/Recipe",{
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe?sk=${sk}`,{
         method: 'GET',
         headers:{
             'x-auth': sessionStorage.token
@@ -14,11 +19,118 @@ async function load(){
         recetas= await resp.json();
         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
         recetasListToHTML(recetas);
-        //limpia el html para quitar botones de busqueda 
-        //document.querySelector('.pagination').innerText='';
+        agregarboton();
+        //poner botones de busqueda necesarios
+
     }else{
         alert('Ha ocurrido un error');
     }
 }
 
-function recipeToHtml(recipe)
+function recipeToHtml(recipe){
+    return`
+    <tr>
+    <td>${recipe.nombre}</td>
+    <td>${recipe.nombre}</td>
+    <td>
+        <ul>
+            ${listing(recipe.ingredientes)}
+        </ul>
+    </td>
+    <td>
+        <ul>
+        ${list(recipe.utencilios)}                                 
+        </ul>
+    </td>
+    <td>
+        <ul>
+            <li>Rapidas</li>
+            <li>Favoritos</li>
+            <li>Con Tortilla</li>
+        </ul>
+    </td>
+    <td>
+        <img class="brand-logo-light"
+    src=${recipe.imagen}
+    alt="" width="140">
+    </td>
+    <td width="50px">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
+            <a class="btn-sm btn-primary text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
+            <a class="confirmation btn-sm btn-danger text-center" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+        </div>
+    </td>
+    </tr>
+    `
+}
+
+function listing(ingre){
+    let r="";
+    for(let i=0;i<ingre.length;i++){
+        r+="<li>"+ingre[i].nombre+" "+ingre[i].cantidad+"</li>";
+    }
+    return(r);
+}
+
+function list(type){
+    let r="";
+    for(let i=0;i<type.length;i++){
+        r+="<li>"+type[i]+"</li>";
+    }
+    return(r);
+}
+
+function recetasListToHTML(recetasl){
+    log(`tamaño arreglo userlist ${recetasl.length}`);
+    //limpipa la pantalla
+    listarecetas.innerText="";
+    //pone los nuevos datos en pantalla
+    //document.querySelector('#listarecetas').insertAdjacentHTML('beforeend',recipeToHtml(recetasl[0]));
+    for(let i=0;i<recetasl.length;i++){
+        document.querySelector('#listarecetas').insertAdjacentHTML('beforeend',recipeToHtml(recetasl[i]));
+    }
+}
+
+function agregarboton(){
+    //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
+    document.querySelector('.pagination').innerText='';
+    let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
+    let paginas=users.length/2
+    log(`nimero de paginas ${paginas}`);
+    for(let i=1;i<paginas+1;i++){
+        agregar+=`<li   ><button class="btn btn-outline-dark botonpag" onclick="paginado('${i}')" id='bot${i}' >${i}</button></li>`
+    }
+    agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
+    document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
+}
+
+//pone los botones necesarios
+function agregarboton(){
+    //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
+    document.querySelector('.pagination').innerText='';
+    let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
+    let paginas=recetas.length/6
+    log(`numero de paginas ${paginas}`);
+    for(let i=1;i<paginas+1;i++){
+        agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i}')" id='bot${i}' >${i}</button></li>`
+    }
+    agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
+    document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
+}
+
+//hace la division de los usuarios en paginas
+function paginado(pag){
+    //si es next o previus el boton hace los calculos
+    if(pag=='n'){
+        numeropag++;
+        pag=numeropag;
+    }else if(pag=='p'){
+        numeropag--;
+        pag=numeropag;
+    }else{
+        numeropag=pag;
+    }
+}
+
+load(0);

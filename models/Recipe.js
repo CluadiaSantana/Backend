@@ -14,10 +14,13 @@ let recipeSchema = mongoose.Schema({
         requiere: true
     },
     categoria:{
-        type: [String],
+        type: String,
         requiere: true
     },
     utencilios:{
+        type: [String]
+    },
+    etiquetas:{
         type: [String]
     },
     correo: {
@@ -46,10 +49,15 @@ recipeSchema.statics.guardarrecipe= async (newrecipe)=>{
     }
 }
 
-recipeSchema.statics.getRecipe= async (filtro)=>{
+recipeSchema.statics.getRecipe= async (filtro,sk)=>{
     console.log(filtro);
-    let docs = await Recipe.find(filtro,{'ingredientes._id':0})
+    let docs = await Recipe
+                    .find(filtro,{'ingredientes._id':0})
+                    .skip(parseInt(sk,10))
+                    .limit(6);
     // console.log(docs);
+    let max= await Recipe.count();
+    console.log(max);
     return docs;
 }
 
