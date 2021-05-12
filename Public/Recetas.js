@@ -8,6 +8,8 @@ let numeropag;
 let recetaactual;
 //model de ver
 let verr=document.querySelector('#recetaver');
+//model de editar
+let edi=document.querySelector('#Editt');
 
 window.onload = function () {
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
@@ -114,7 +116,7 @@ function recipeToHtml(recipe){
     <td width="50px">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-            <a class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
+            <a onclick="editarrect('${recipe._id}')" class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
             <a class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
@@ -236,6 +238,12 @@ async function verdetalle(id){
     listver(ele,recetaactual[0].etiquetas);
 }
 
+async function editarrect(id){
+    await actual(id);
+    edi.querySelector('#editnombre').value=recetaactual[0].nombre;
+    
+    
+}
 //pone los botones necesarios
 function agregarboton(){
     //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
