@@ -178,7 +178,10 @@ router.post("/Login", async (req, res) => {
     rol: user.rol,
   };
   let token = jwt.sign(response, secret);
-  res.status(200).send({ token });
+  let us=[];
+  us.push(response.rol);
+  us.push({token})
+  res.status(200).send(us);
 });
 
 module.exports = router;

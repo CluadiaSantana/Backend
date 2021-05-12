@@ -51,14 +51,17 @@ recipeSchema.statics.guardarrecipe= async (newrecipe)=>{
 
 recipeSchema.statics.getRecipe= async (filtro,sk)=>{
     console.log(filtro);
+    let re=[]
     let docs = await Recipe
                     .find(filtro,{'ingredientes._id':0})
                     .skip(parseInt(sk,10))
                     .limit(6);
     // console.log(docs);
     let max= await Recipe.count();
-    console.log(max);
-    return docs;
+    re.push(max);
+    re.push(docs)
+    //console.log(max);
+    return re;
 }
 
 recipeSchema.statics.updateRecipe = async function(_id, receta ){
