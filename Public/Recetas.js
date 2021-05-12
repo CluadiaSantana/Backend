@@ -109,7 +109,7 @@ async function listing_ingredients() {
       requestOptions
     )
       .then((response) => response.json())
-      .then((result) => recetasListToHTML(result));
+      .then((result) => recetasListToHTML(result[0]));
   }
   document.getElementById("buscar").addEventListener("click", buscar);
 
