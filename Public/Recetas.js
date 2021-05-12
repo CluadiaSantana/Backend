@@ -1,5 +1,23 @@
 function log(val) { console.log("726396",val); }
 let recetas=[];
+//numero de registros
+let np;
+//numero de pagina actual
+let numeropag;
+const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
+
+window.onload = function () {
+    let us=authPer(sessionStorage.token);
+    log(us);
+    //log(sessionStorage.token)
+    // if (us[0]=="regular") {
+    //   document.getElementById("crear").classList.add("oculto");
+    // }
+    // if (sessionStorage.token) {
+    //     document.getElementById("linkreg").classList.add("oculto");
+    //     document.getElementById("login").innerText("logout");
+    // }
+};
 
 async function load(pg){
     if(pg==undefined){
@@ -18,7 +36,9 @@ async function load(pg){
         log('cargo datos')
         recetas= await resp.json();
         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
-        recetasListToHTML(recetas);
+        recetasListToHTML(recetas[1]);
+        np=recetas[0]
+        log(np);
         agregarboton();
         //poner botones de busqueda necesarios
 
@@ -82,7 +102,6 @@ function list(type){
 }
 
 function recetasListToHTML(recetasl){
-    log(`tamaño arreglo userlist ${recetasl.length}`);
     //limpipa la pantalla
     listarecetas.innerText="";
     //pone los nuevos datos en pantalla
@@ -92,25 +111,14 @@ function recetasListToHTML(recetasl){
     }
 }
 
-function agregarboton(){
-    //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
-    document.querySelector('.pagination').innerText='';
-    let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
-    let paginas=users.length/2
-    log(`nimero de paginas ${paginas}`);
-    for(let i=1;i<paginas+1;i++){
-        agregar+=`<li   ><button class="btn btn-outline-dark botonpag" onclick="paginado('${i}')" id='bot${i}' >${i}</button></li>`
-    }
-    agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
-    document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
-}
+
 
 //pone los botones necesarios
 function agregarboton(){
     //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
     document.querySelector('.pagination').innerText='';
     let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
-    let paginas=recetas.length/6
+    let paginas=np/6
     log(`numero de paginas ${paginas}`);
     for(let i=1;i<paginas+1;i++){
         agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i}')" id='bot${i}' >${i}</button></li>`
@@ -120,7 +128,8 @@ function agregarboton(){
 }
 
 //hace la division de los usuarios en paginas
-function paginado(pag){
+async function  paginado(pag){
+    
     //si es next o previus el boton hace los calculos
     if(pag=='n'){
         numeropag++;
@@ -131,6 +140,18 @@ function paginado(pag){
     }else{
         numeropag=pag;
     }
+    log(numeropag)
+    await load(numeropag)
+    document.querySelectorAll('.botonpag').forEach(e=>{ e.removeAttribute('disabled') })
+    //deshabilita los botones necesarios
+    if(numeropag==0){
+        document.querySelector('#prev').setAttribute('disabled','true');
+    }
+    if(numeropag+1>=np/6){
+        document.querySelector('#next').setAttribute('disabled','true');
+    }
+    document.querySelector(`#bot${numeropag+1}`).setAttribute('disabled','true');
+
 }
 
-load(0);
+paginado(0);

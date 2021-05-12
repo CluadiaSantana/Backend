@@ -9,5 +9,6 @@ window.onload = function () {
   }
   document.getElementById("login").addEventListener("click", function () {
     sessionStorage.token = null;
+    sessionStorage.us=null;
   });
 };

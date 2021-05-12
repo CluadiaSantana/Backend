@@ -1,4 +1,5 @@
 sessionStorage.token;
+sessionStorage.us;
 
 //logear usuario
 let datos=document.querySelector('#datoslogin');
@@ -23,7 +24,8 @@ entrar.addEventListener("click", async function(e){
     if(resp.status==200){
         let token= await resp.json();
         // guardar el token del usuario
-        sessionStorage.token=token.token;
+        sessionStorage.token=token[1].token;
+        sessionStorage.us=token[0];
         //llevar a la de inicio
         window.location.href="Index.html";
     }else{
