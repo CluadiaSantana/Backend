@@ -1,6 +1,7 @@
 const express = require("express");
 const users = require("./users");
 const recipes = require("./recipes");
+const Categoria = require("./models/Categorias");
 var mongoose = require("./conexion");
 const {log, test} = require('./middlewares/logs')
 var Consignador = require("./models/User");
@@ -26,6 +27,11 @@ app.get("/api/Ingrediente" , async (req, res) => {
 
 app.get("/api/Utensilio" , async (req, res) => {
   let lista= await Utensilio.getUtensilio();
+  res.send(lista);
+});
+
+app.get("/api/Categoria" , async (req, res) => {
+  let lista= await Categoria.getCategoria();
   res.send(lista);
 });
 
