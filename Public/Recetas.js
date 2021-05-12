@@ -39,12 +39,12 @@ async function load(pg){
         },
     });
     if(resp.status==200){
-        log('cargo datos')
+        //log('cargo datos')
         recetas= await resp.json();
         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
         recetasListToHTML(recetas[1]);
         np=recetas[0]
-        log(np);
+        //log(np);
         agregarboton();
         //poner botones de busqueda necesarios
 
@@ -83,18 +83,33 @@ function recipeToHtml(recipe){
     <td width="50px">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-            <a class="btn-sm btn-primary text-center " href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-            <a class="confirmation btn-sm btn-danger text-center ${editarbotton(recipe.correo)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+            <a class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
+            <a class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
     </tr>
     `
 }
 function editarbotton(correo){
-    if(sessionStorage.us=="regular"){
+    if(sessionStorage.us=="regular" || sessionStorage.us==null){
         return("oculto")
-    }else if(sessionStorage.us=="chef")
-    if()
+    }else if(sessionStorage.us=="chef"){
+        if((sessionStorage.email).toUpperCase()==correo.toUpperCase()){
+            return;
+        }else{
+            return("oculto");
+        }
+    }else{
+        return;
+    }
+    
+}
+function borrabotton(correo){
+    if(sessionStorage.us!="admin"){
+        return("oculto")
+    }else{
+        return;
+    }
 }
 
 function listing(ingre){
@@ -140,9 +155,9 @@ function agregarboton(){
     document.querySelector('.pagination').innerText='';
     let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
     let paginas=np/6
-    log(`numero de paginas ${paginas}`);
+    //log(`numero de paginas ${paginas}`);
     for(let i=1;i<paginas+1;i++){
-        agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i}')" id='bot${i}' >${i}</button></li>`
+        agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i-1}')" id='bot${i-1}' >${i}</button></li>`
     }
     agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
     document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
@@ -171,7 +186,7 @@ async function  paginado(pag){
     if(numeropag+1>=np/6){
         document.querySelector('#next').setAttribute('disabled','true');
     }
-    document.querySelector(`#bot${numeropag+1}`).setAttribute('disabled','true');
+    document.querySelector(`#bot${numeropag}`).setAttribute('disabled','true');
 
 }
 
