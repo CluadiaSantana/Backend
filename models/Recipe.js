@@ -27,9 +27,9 @@ let recipeSchema = mongoose.Schema({
         type: String,
         requiere: true
     },
-    imagen: {
+    url: {
         type: String,
-        requiere: false
+        requiere: true
     }
 })
 

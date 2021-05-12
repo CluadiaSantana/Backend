@@ -12,15 +12,21 @@ let verr=document.querySelector('#recetaver');
 let edi=document.querySelector('#Editt');
 //boton actualizar
 let actualizar=document.querySelector('#Actualizar');
+//boton crear nueva receta
+let guardarrecer=document.querySelector('#guardcrear');
 
+let ingred;
 async function listing_ingredients() {
-    let ingred = await fetch(`http://127.0.0.1:3000/api/ingredientes`, {
+    ingred = await fetch(`http://127.0.0.1:3000/api/ingredientes`, {
       method: "GET",
       headers: {
         "x-auth": sessionStorage.token,
       },
     }).then((res) => res.json());
-    let select = document.getElementById("select-ingredientes");
+  }
+
+ function insert_ingredients(id) {
+    let select = document.getElementById(id);
     for (let i = 0; i < ingred.length; i++) {
       let option = document.createElement("option");
       option.innerHTML =
@@ -32,7 +38,7 @@ async function listing_ingredients() {
       
       select.appendChild(option.firstChild);
     }
-  }
+  } 
   
   async function listing_utensilios(id) {
     let utensilio = await fetch(`http://127.0.0.1:3000/api/Utensilio`, {
@@ -103,13 +109,14 @@ async function listing_ingredients() {
       requestOptions
     )
       .then((response) => response.json())
-      .then((result) => console.log(result));
+      .then((result) => recetasListToHTML(result));
   }
   document.getElementById("buscar").addEventListener("click", buscar);
 
-window.onload = function () {
-    listing_ingredients();
+window.onload = async function () {
+    await listing_ingredients();
     listing_utensilios("select-utensilio");
+    insert_ingredients("select-ingredientes");
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
       document.getElementById("crear").classList.add("oculto");
     }else{
@@ -173,21 +180,19 @@ function recipeToHtml(recipe){
     </td>
     <td>
         <ul>
-            <li>Rapidas</li>
-            <li>Favoritos</li>
-            <li>Con Tortilla</li>
+        ${list(recipe.etiquetas)}
         </ul>
     </td>
     <td>
         <img class="brand-logo-light"
-    src=${recipe.imagen}
+    src=${recipe.url}
     alt="" width="140">
     </td>
     <td width="50px">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
             <a onclick="editarrect('${recipe._id}')" class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-            <a class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+            <a onclick="borrarreceta('${recipe._id}')"class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
     </tr>
@@ -290,6 +295,7 @@ async function verdetalle(id){
     console.log(recetaactual[0].nombre);
     document.querySelector('#Nombrever').innerText=recetaactual[0].nombre;
     verr.querySelector('#vercat').innerText=recetaactual[0].categoria;
+    verr.querySelector('#imaagen').src=recetaactual[0].url;
     let ele = document.getElementById("verute");
     listver(ele,recetaactual[0].utencilios);
     ele = document.getElementById("veringr");
@@ -328,6 +334,21 @@ async function editarrect(id){
     listedi(ele,recetaactual[0].etiquetas);
 }
 
+async function borrarreceta(id){
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${id}`,{
+        method: 'DELETE',
+        headers:{
+            'x-auth': sessionStorage.token}
+    });
+    console.log(resp.status);
+    if(resp.status==200){
+        log('Receta');
+    }else{
+        alert('Ha ocurrido un error');
+    }
+    paginado(0);
+}
+
 actualizar.addEventListener("click", async function(e){
     e.preventDefault();
     let f={
@@ -357,6 +378,78 @@ actualizar.addEventListener("click", async function(e){
         alert('Ha ocurrido un error');
     }
 })
+
+async function nuevareceta(){
+    await listing_ingredients();
+    await insert_ingredients("select-ingredientes1");
+    await insert_ingredients("select-ingredientes2");
+    await insert_ingredients("select-ingredientes3");
+    await insert_ingredients("select-ingredientes4");
+    await insert_ingredients("select-ingredientes5");
+}
+
+guardarrecer.addEventListener("click", async function(e){
+    e.preventDefault();
+    let inc=[];
+    class ing{
+        constructor(nombre,cantidad){
+            this.nombre=nombre;
+            this.cantidad=cantidad;
+        }
+      }
+    for(let h=1;h<4;h++){
+        if(document.querySelector(`#select-ingredientes${h}`).value!=0){
+            let nom=document.querySelector(`#select-ingredientes${h}`).value;
+            let cant=document.querySelector(`#select-cantidad${h}`).value;
+            log(nom);
+            inc.push(new ing(nom,cant));
+        }
+    }
+    let ute=[];
+    for(let h=1;h<4;h++){
+        if(document.querySelector(`#ut${h}`).value!=0){
+            ute.push(document.querySelector(`#ut${h}`).value);
+        }
+    }
+    let eti=[];
+    for(let h=1;h<3;h++){
+        if(document.querySelector(`#select-etiqueta${h}`).value!=0){
+            eti.push(document.querySelector(`#select-etiqueta${h}`).value);
+        }
+    }
+    console.log(inc);
+    console.log(ute);
+    let u=document.querySelector('#urlcrear').value;
+    let f={
+        "nombre": document.querySelector('#Nuevonombre').value,
+        "ingredientes":inc,
+        "receta": document.querySelector('#Proc').value,
+        "categoria":document.querySelector('#cat1').value,
+        "utencilios":ute,
+        "etiquetas":eti,
+        "correo":sessionStorage.email,
+        "url": u
+
+    }
+    let imp=JSON.stringify(f);
+    console.log(imp);
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe`,{
+        method: 'POST',
+        headers:{
+            'x-auth': sessionStorage.token,
+            'Content-Type': 'application/json'},
+        body: imp
+    });
+    console.log(resp.status);
+    if(resp.status==201){
+        paginado(0);
+        alert('Se ha creado nueva receta')
+        log('Receta');
+    }else{
+        alert('Ha ocurrido un error');
+    }
+})
+
 //pone los botones necesarios
 function agregarboton(){
     //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones

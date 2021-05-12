@@ -12,7 +12,8 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
     "receta": " Calienta el agua con la canela y cuando suelte el hervor, agrega el arroz Cocina",
     "categoria":["facil","cena"],
     "utencilios":["estufa","plato"],
-    "correo":"ca@test.com"
+    "correo":"ca@test.com",
+    "imagen":"https://www.seekpng.com/png/full/524-5248604_comida-icono-png-iconos-de-comida-png.png"
 }
 
 ###
@@ -48,13 +49,13 @@ POST  {{host}}/api/Recipe
 Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
 
-{
-    "nombre": "Licuado con nieve de mango",
-    "ingredientes":[{"nombre":"Fresa", "cantidad": "100gr"},{"nombre":"Canela", "cantidad": "1pz"},{"nombre":"Leche", "cantidad": "500ml"}],
-    "receta": " Calienta el agua con la canela y cuando suelte el hervor, agrega el arroz Cocina",
-    "categoria":["facil","niños"],
-    "utencilios":["licuadora","cuchara"],
-    "correo":"ca@test.com"
+{"nombre":"papas con zanahorias",
+"ingredientes":[{"nombre":"Papa","cantidad":"5 pza"},{"nombre":"Calabaza","cantidad":"3 pza"}],
+"receta":".klh,jgmhngbvfcvgfbhnjn",
+"categoria":"Mexicana",
+"utencilios":["Estufa","Licuadora"],"etiquetas":["Favoritos","Rapidas"],
+"url":"hola",
+"correo":"ca@test.com"
 }
 
 ###
@@ -115,7 +116,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI
 
 ###
 //get id
-GET {{host}}/api/Recipe/608f541300f687125c3c341a
+GET {{host}}/609bddcf993491b1bc1b2a6b
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 ###
@@ -124,7 +125,7 @@ x-auth:
 
 
 ###
-GET {{host}}/api/Recipe/608f541300f687125c3c341a
+GET {{host}}/api/Recipe/609bddcf993491b1bc1b2a6b
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 
