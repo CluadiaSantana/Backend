@@ -66,13 +66,12 @@ Content-Type: application/json
 
 ###
 //get de receta que no existe
-GET {{host}}/api/Recipe
+POST {{host}}/api/Recipe
 Content-Type: application/json
 
 {
-    "ingredientes": ["Leche","Cereza"],
-    "categoria": "Desayuno",
-    "etiquetas": []
+    "ingredientes": ["Leche","Arroz"],
+    "categoria": "Desayuno"
 }
 ###
 

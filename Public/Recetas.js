@@ -4,7 +4,8 @@ let recetas=[];
 let np;
 //numero de pagina actual
 let numeropag;
-const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
+//receta ocn la que se esta trabajando
+let recetaactual;
 
 window.onload = function () {
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
@@ -53,6 +54,34 @@ async function load(pg){
     }
 }
 
+async function bod(){
+    let params={
+        "ingredientes": "Leche",
+        "categoria": "Desayuno",
+        "utencilios": "Plato",
+    }
+    let query = Object.keys(params)
+             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+             .join('&');
+    console.log(query);
+    
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/?sk=0&${query}`,{
+        method: 'GET',
+        headers:{
+            'x-auth': sessionStorage.token
+        }
+    });
+    if(resp.status==200){
+        //log('cargo datos')
+        recetas= await resp.json();
+        //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
+        recetasListToHTML(recetas[1]);
+
+    }else{
+        alert('Ha ocurrido un error');
+    }
+}
+
 function recipeToHtml(recipe){
     return`
     <tr>
@@ -82,7 +111,7 @@ function recipeToHtml(recipe){
     </td>
     <td width="50px">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
+            <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
             <a class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
             <a class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
@@ -147,7 +176,26 @@ function recetasListToHTML(recetasl){
     }
 }
 
+async function actual(id){
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${id}`,{
+        method: 'GET',
+        headers:{
+            'x-auth': sessionStorage.token
+        },
+    });
+    if(resp.status==200){
+        //log('cargo datos')
+        let s= await resp.json();
+        recetaactual=s[1];
+    }else{
+        alert('Ha ocurrido un error');
+    }
+}
 
+async function verdetalle(id){
+    await actual(id);
+    console.log(recetaactual[0].nombre);
+}
 
 //pone los botones necesarios
 function agregarboton(){
