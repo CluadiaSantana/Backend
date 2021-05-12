@@ -88,17 +88,14 @@ router.post('/', async(req,res)=>{
         res.status(401).send({error: "Usuario no autorizado"})
         return
     }
-    let {nombre,ingredientes,receta, categoria,etiquetas, utencilios,correo,url}= req.body;
-    let newRecipe={nombre,ingredientes,receta, categoria,etiquetas, utencilios,correo}
+    let {nombre,ingredientes,receta, categoria,etiquetas, utencilios,correo,imagen}= req.body;
+    let newRecipe={nombre,ingredientes,receta, categoria,etiquetas, utencilios,correo,imagen}
     let faltan= Object.keys(newRecipe).filter(prop=> newRecipe[prop]==undefined).join();
     if(faltan){
         res.status(400).send(`Falta: ${faltan}`);
         return;
     }
-    if(url==null){
-        url="https://www.seekpng.com/png/full/524-5248604_comida-icono-png-iconos-de-comida-png.png"
-    }
-    let doc = await Recipe.guardarrecipe({nombre,ingredientes,receta,categoria,etiquetas, utencilios,correo,url})
+    let doc = await Recipe.guardarrecipe({nombre,ingredientes,receta,categoria,etiquetas,utencilios,correo,imagen})
         if(doc && !doc.error ){
             res.status(201).send(doc)
         }else{
@@ -142,8 +139,8 @@ router.put('/:id', async (req,res)=>{
         res.status(404).send({error: "No se encontro la receta a actualizar"})
            return;
     }else{
-        let {nombre,ingredientes,receta, categoria,etiquetas, utencilios,url}= req.body;
-        let doc= await Recipe.updateRecipe(req.params.id,{nombre,ingredientes,receta, categoria,etiquetas, utencilios,url});
+        let {nombre,ingredientes,receta, categoria,etiquetas, utencilios,imagen}= req.body;
+        let doc= await Recipe.updateRecipe(req.params.id,{nombre,ingredientes,receta, categoria,etiquetas, utencilios,imagen});
         res.status(200).send(doc);
     }
 })
