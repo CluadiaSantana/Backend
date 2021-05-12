@@ -148,22 +148,14 @@ bgc2, .vLine, .hLine {
                               <form class="form-horizontal" role="form">
                                 <div class="form-group">
                                   <label for="filter">Ingredientes</label>
-                                  <select class="form-control">
-                                      <option value="0" selected>All Snippets</option>
-                                      <option value="1">Featured</option>
-                                      <option value="2">Most popular</option>
-                                      <option value="3">Top rated</option>
-                                      <option value="4">Most commented</option>
+                                  <select class="form-control" id='select-ingredientes'>
+                                    <option value="" selected>Sin filtro</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
                                   <label for="filter">Ingredientes</label>
-                                  <select class="form-control">
-                                      <option value="0" selected>All Snippets</option>
-                                      <option value="1">Featured</option>
-                                      <option value="2">Most popular</option>
-                                      <option value="3">Top rated</option>
-                                      <option value="4">Most commented</option>
+                                  <select class="form-control" id='select-ingredientes2'>
+                                    <option value="" selected>Sin filtro</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
@@ -178,12 +170,8 @@ bgc2, .vLine, .hLine {
                                 </div>
                                 <div class="form-group">
                                   <label for="filter">Utensilios</label>
-                                  <select class="form-control">
-                                      <option value="0" selected>All Snippets</option>
-                                      <option value="1">Featured</option>
-                                      <option value="2">Most popular</option>
-                                      <option value="3">Top rated</option>
-                                      <option value="4">Most commented</option>
+                                  <select class="form-control" id='select-utensilio'>
+                                    <option value="" selected>Sin filtro</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
@@ -211,7 +199,7 @@ bgc2, .vLine, .hLine {
                               </form>
                           </div>
                       </div>
-                      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">buscar</span></button>
+                      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" id="buscar" aria-hidden="true">buscar</span></button>
                   </div>
               </div>
           </div>
