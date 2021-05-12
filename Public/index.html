@@ -63,13 +63,16 @@ bgc2, .vLine, .hLine {
     display: none;
   }
   .dropdown.dropdown-lg .dropdown-menu {
+    
     margin-top: -1px;
     padding: 6px 20px;
 }
 .input-group-btn .btn-group {
+  
     display: flex !important;
 }
 .btn-group .btn {
+    
     border-radius: 0;
     margin-left: -1px;
 }
@@ -78,17 +81,23 @@ bgc2, .vLine, .hLine {
     border-bottom-right-radius: 4px;
 }
 .btn-group .form-horizontal .btn[type="submit"] {
+  
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 .form-horizontal .form-group {
+    
     margin-left: 0;
     margin-right: 0;
 }
 .form-group .form-control:last-child {
+  
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
+.midrop{
+  height: calc(2.25rem + 2px) !important; 
+} 
 
 @media screen and (min-width: 768px) {
     #adv-search {
@@ -129,17 +138,16 @@ bgc2, .vLine, .hLine {
         </button>
         <div class="input-group mb-0">
           <div class="input-group-prepend">
-
             <div class="input-group" id="adv-search">
               <input type="text" class="form-control" placeholder="Search for snippets" />
               <div class="input-group-btn">
                   <div class="btn-group" role="group">
                       <div class="dropdown dropdown-lg">
-                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                          <button type="button" class="btn btn-default dropdown-toggle midrop"  data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                           <div class="dropdown-menu dropdown-menu-right" role="menu">
                               <form class="form-horizontal" role="form">
                                 <div class="form-group">
-                                  <label for="filter">Filter by</label>
+                                  <label for="filter">Ingredientes</label>
                                   <select class="form-control">
                                       <option value="0" selected>All Snippets</option>
                                       <option value="1">Featured</option>
@@ -149,18 +157,61 @@ bgc2, .vLine, .hLine {
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="contain">Author</label>
-                                  <input class="form-control" type="text" />
+                                  <label for="filter">Ingredientes</label>
+                                  <select class="form-control">
+                                      <option value="0" selected>All Snippets</option>
+                                      <option value="1">Featured</option>
+                                      <option value="2">Most popular</option>
+                                      <option value="3">Top rated</option>
+                                      <option value="4">Most commented</option>
+                                  </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="contain">Contains the words</label>
-                                  <input class="form-control" type="text" />
+                                  <label for="filter">Categoria</label>
+                                  <select class="form-control">
+                                      <option value="0" selected>All Snippets</option>
+                                      <option value="1">Featured</option>
+                                      <option value="2">Most popular</option>
+                                      <option value="3">Top rated</option>
+                                      <option value="4">Most commented</option>
+                                  </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                <div class="form-group">
+                                  <label for="filter">Utensilios</label>
+                                  <select class="form-control">
+                                      <option value="0" selected>All Snippets</option>
+                                      <option value="1">Featured</option>
+                                      <option value="2">Most popular</option>
+                                      <option value="3">Top rated</option>
+                                      <option value="4">Most commented</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="filter">Etiquita</label>
+                                  <select class="form-control">
+                                      <option value="0" selected>All Snippets</option>
+                                      <option value="1">Featured</option>
+                                      <option value="2">Most popular</option>
+                                      <option value="3">Top rated</option>
+                                      <option value="4">Most commented</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="filter">Etiquita</label>
+                                  <select class="form-control">
+                                      <option value="0" selected>All Snippets</option>
+                                      <option value="1">Featured</option>
+                                      <option value="2">Most popular</option>
+                                      <option value="3">Top rated</option>
+                                      <option value="4">Most commented</option>
+                                  </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>buscar</button>
                               </form>
                           </div>
                       </div>
-                      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">buscar</span></button>
                   </div>
               </div>
           </div>
