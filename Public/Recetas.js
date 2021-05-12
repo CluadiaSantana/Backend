@@ -154,7 +154,7 @@ async function load(pg){
         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
         recetasListToHTML(recetas[1]);
         np=recetas[0]
-        //log(np);
+        log(`numero de recetas ${np}`);
         agregarboton();
         //poner botones de busqueda necesarios
 
@@ -370,7 +370,6 @@ actualizar.addEventListener("click", async function(e){
     });
     console.log(resp.status);
     if(resp.status==200){
-        paginado(0);
         alert('El usuario se ha Actualizado')
         log('Actualizado');
     }else{
@@ -454,10 +453,11 @@ function agregarboton(){
     //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
     document.querySelector('.pagination').innerText='';
     let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
-    let paginas=np/6
-    //log(`numero de paginas ${paginas}`);
+    let paginas=np/6;
+    log(`numero de paginas ${paginas}`);
     for(let i=1;i<paginas+1;i++){
         agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i-1}')" id='bot${i-1}' >${i}</button></li>`
+        log(agregar);
     }
     agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
     document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
@@ -476,6 +476,7 @@ async function  paginado(pag){
     }else{
         numeropag=pag;
     }
+    
     log(numeropag)
     await load(numeropag)
     document.querySelectorAll('.botonpag').forEach(e=>{ e.removeAttribute('disabled') })
