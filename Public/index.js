@@ -8,7 +8,6 @@ async function listing_ingredients() {
     },
   }).then((res) => res.json());
   let select = document.getElementById("select-ingredientes");
-  let select2 = document.getElementById("select-ingredientes2");
   for (let i = 0; i < ingred.length; i++) {
     let option = document.createElement("option");
     option.innerHTML =
@@ -17,19 +16,12 @@ async function listing_ingredients() {
       "'>" +
       ingred[i].nombre +
       " </option> ";
-    let option2 = document.createElement("option");
-    option2.innerHTML =
-      "<option value='" +
-      ingred[i].nombre +
-      "'>" +
-      ingred[i].nombre +
-      " </option> ";
+    
     select.appendChild(option.firstChild);
-    select2.appendChild(option2.firstChild);
   }
 }
 
-async function listing_categories() {
+async function listing_utensilios() {
   let utensilio = await fetch(`http://127.0.0.1:3000/api/Utensilio`, {
     method: "GET",
     headers: {
@@ -52,27 +44,27 @@ async function listing_categories() {
 async function buscar(e) {
   e.preventDefault();
   let ingrediente = document.getElementById("select-ingredientes").value;
-  let ingrediente2 = document.getElementById("select-ingredientes2").value;
-  let busqueda = {};
   let string = "";
-  if (ingrediente || ingrediente2) {
-    busqueda.ingredientes = [];
-    if (ingrediente) busqueda.ingredientes.push(ingrediente);
-    if (ingrediente2) busqueda.ingredientes.push(ingrediente2);
+  if (ingrediente ) string = `ingredientes=${ingrediente}`
+
+  let utensilio = document.getElementById("select-utensilio").value;
+  if(utensilio){
+    if(string.length>1){
+      string += `&utencilios=${utensilio}`
+    }
+    else
+      string=`utencilios=${utensilio}`
+      
   }
+
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  if (busqueda.ingredientes)
-    string += `ingredientes=[${JSON.stringify(busqueda.ingredientes)}
-    )}]`;
   var requestOptions = {
     method: "GET",
     headers: myHeaders,
   };
   fetch(
-    `http://127.0.0.1:3000/api/Recipe?ingredientes=${JSON.stringify(
-      busqueda.ingredientes
-    ).replace(/\\"/g, '"')}`,
+    `http://127.0.0.1:3000/api/Recipe?${string}`,
     requestOptions
   )
     .then((response) => response.json())
@@ -82,7 +74,7 @@ document.getElementById("buscar").addEventListener("click", buscar);
 
 window.onload = function () {
   listing_ingredients();
-  listing_categories();
+  listing_utensilios();
   console.log(sessionStorage.token);
   if (sessionStorage.token) {
     document.getElementById("Linkreg").classList.add("oculto");
