@@ -29,7 +29,6 @@ let recipeSchema = mongoose.Schema({
     },
     url: {
         type: String,
-        requiere: true
     }
 })
 

@@ -346,7 +346,6 @@ async function borrarreceta(id){
     }else{
         alert('Ha ocurrido un error');
     }
-    paginado(0);
 }
 
 actualizar.addEventListener("click", async function(e){
