@@ -181,6 +181,7 @@ router.post("/Login", async (req, res) => {
   let us=[];
   us.push(response.rol);
   us.push({token})
+  us.push(response.email);
   res.status(200).send(us);
 });
 

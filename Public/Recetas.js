@@ -4,20 +4,27 @@ let recetas=[];
 let np;
 //numero de pagina actual
 let numeropag;
-const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
+//receta ocn la que se esta trabajando
+let recetaactual;
 
 window.onload = function () {
-    let us=authPer(sessionStorage.token);
-    log(us);
-    //log(sessionStorage.token)
-    // if (us[0]=="regular") {
-    //   document.getElementById("crear").classList.add("oculto");
-    // }
-    // if (sessionStorage.token) {
-    //     document.getElementById("linkreg").classList.add("oculto");
-    //     document.getElementById("login").innerText("logout");
-    // }
+    if (sessionStorage.us=="regular" || sessionStorage.us==null) {
+      document.getElementById("crear").classList.add("oculto");
+    }else{
+        document.getElementById("crear").classList.remove("oculto");
+    }
+    if (sessionStorage.token) {
+        document.getElementById("linkreg").classList.add("oculto");
+        document.getElementById("login").innerText="logout";
+    }else{
+        document.getElementById("linkreg").classList.remove("oculto");
+        document.getElementById("login").innerText="login";
+    }
 };
+document.getElementById("login").addEventListener("click", function () {
+    sessionStorage.token = null;
+    sessionStorage.us=null;
+  });
 
 async function load(pg){
     if(pg==undefined){
@@ -33,14 +40,42 @@ async function load(pg){
         },
     });
     if(resp.status==200){
-        log('cargo datos')
+        //log('cargo datos')
         recetas= await resp.json();
         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
         recetasListToHTML(recetas[1]);
         np=recetas[0]
-        log(np);
+        //log(np);
         agregarboton();
         //poner botones de busqueda necesarios
+
+    }else{
+        alert('Ha ocurrido un error');
+    }
+}
+
+async function bod(){
+    let params={
+        "ingredientes": "Leche",
+        "categoria": "Desayuno",
+        "utencilios": "Plato",
+    }
+    let query = Object.keys(params)
+             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+             .join('&');
+    console.log(query);
+    
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/?sk=0&${query}`,{
+        method: 'GET',
+        headers:{
+            'x-auth': sessionStorage.token
+        }
+    });
+    if(resp.status==200){
+        //log('cargo datos')
+        recetas= await resp.json();
+        //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
+        recetasListToHTML(recetas[1]);
 
     }else{
         alert('Ha ocurrido un error');
@@ -76,13 +111,34 @@ function recipeToHtml(recipe){
     </td>
     <td width="50px">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-            <a class="btn-sm btn-primary text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-            <a class="confirmation btn-sm btn-danger text-center" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+            <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
+            <a class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
+            <a class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
     </tr>
     `
+}
+function editarbotton(correo){
+    if(sessionStorage.us=="regular" || sessionStorage.us==null){
+        return("oculto")
+    }else if(sessionStorage.us=="chef"){
+        if((sessionStorage.email).toUpperCase()==correo.toUpperCase()){
+            return;
+        }else{
+            return("oculto");
+        }
+    }else{
+        return;
+    }
+    
+}
+function borrabotton(correo){
+    if(sessionStorage.us!="admin"){
+        return("oculto")
+    }else{
+        return;
+    }
 }
 
 function listing(ingre){
@@ -120,7 +176,26 @@ function recetasListToHTML(recetasl){
     }
 }
 
+async function actual(id){
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${id}`,{
+        method: 'GET',
+        headers:{
+            'x-auth': sessionStorage.token
+        },
+    });
+    if(resp.status==200){
+        //log('cargo datos')
+        let s= await resp.json();
+        recetaactual=s[1];
+    }else{
+        alert('Ha ocurrido un error');
+    }
+}
 
+async function verdetalle(id){
+    await actual(id);
+    console.log(recetaactual[0].nombre);
+}
 
 //pone los botones necesarios
 function agregarboton(){
@@ -128,9 +203,9 @@ function agregarboton(){
     document.querySelector('.pagination').innerText='';
     let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
     let paginas=np/6
-    log(`numero de paginas ${paginas}`);
+    //log(`numero de paginas ${paginas}`);
     for(let i=1;i<paginas+1;i++){
-        agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i}')" id='bot${i}' >${i}</button></li>`
+        agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i-1}')" id='bot${i-1}' >${i}</button></li>`
     }
     agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
     document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
@@ -159,7 +234,7 @@ async function  paginado(pag){
     if(numeropag+1>=np/6){
         document.querySelector('#next').setAttribute('disabled','true');
     }
-    document.querySelector(`#bot${numeropag+1}`).setAttribute('disabled','true');
+    document.querySelector(`#bot${numeropag}`).setAttribute('disabled','true');
 
 }
 

@@ -24,30 +24,36 @@ function authPer(token) {
 
 router.get('/', async(req,res)=>{
     let {sk}=req.query;
-    let {nombre,ingredientes,categoria, utencilios,correo}= req.body;
+    let {nombre,ingredientes,categoria, utencilios,correo,etiquetas}= req.query;
     let filtro={};
     let and=[];
+    console.log(ingredientes);
     if(nombre)
         filtro.nombre = new RegExp(nombre,'i')
     if(ingredientes){
-        
-        ingredientes.map(inge=>{
-            and.push({'ingredientes.nombre': new RegExp(inge,'i')});
-        })
+        and.push({'ingredientes.nombre': new RegExp(ingredientes,'i')});
+        // ingredientes.map(inge=>{
+        //     and.push({'ingredientes.nombre': new RegExp(inge,'i')});
+        // })
         console.log(and);
         filtro.$and=and;
     }
     if(categoria){
-        categoria.map(cat=>{
-            and.push({categoria: new RegExp(cat,'i')});
-        })
+        filtro.categoria = new RegExp(categoria,'i')
+    }
+    if(utencilios){
+        and.push({utencilios: new RegExp(utencilios,'i')});
+        // utencilios.map(uti=>{
+        //     and.push({utencilios: new RegExp(uti,'i')});
+        // })
         console.log(and);
         filtro.$and=and;
     }
-    if(utencilios){
-        utencilios.map(uti=>{
-            and.push({utencilios: new RegExp(uti,'i')});
-        })
+    if(etiquetas){
+        and.push({etiquetas: new RegExp(etiquetas,'i')});
+        // etiquetas.map(uti=>{
+        //     and.push({etiquetas: new RegExp(uti,'i')});
+        // })
         console.log(and);
         filtro.$and=and;
     }
@@ -66,7 +72,7 @@ router.get('/', async(req,res)=>{
     }
     //console.log(filtro);
     let lista= await Recipe.getRecipe(filtro,sk);
-    if(lista[0]){
+    if(lista[1]){
         res.status(200).send(lista);
         return;
     }else{
