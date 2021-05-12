@@ -7,16 +7,13 @@ let numeropag;
 const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
 
 window.onload = function () {
-    let us=authPer(sessionStorage.token);
-    log(us);
-    //log(sessionStorage.token)
-    // if (us[0]=="regular") {
-    //   document.getElementById("crear").classList.add("oculto");
-    // }
-    // if (sessionStorage.token) {
-    //     document.getElementById("linkreg").classList.add("oculto");
-    //     document.getElementById("login").innerText("logout");
-    // }
+    if (sessionStorage.us=="regular" || sessionStorage.us==null) {
+      document.getElementById("crear").classList.add("oculto");
+    }
+    if (sessionStorage.token) {
+        document.getElementById("linkreg").classList.add("oculto");
+        document.getElementById("login").innerText("logout");
+    }
 };
 
 async function load(pg){

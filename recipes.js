@@ -24,7 +24,7 @@ function authPer(token) {
 
 router.get('/', async(req,res)=>{
     let {sk}=req.query;
-    let {nombre,ingredientes,categoria, utencilios,correo}= req.body;
+    let {nombre,ingredientes,categoria, utencilios,correo,etiquetas}= req.body;
     let filtro={};
     let and=[];
     if(nombre)
@@ -47,6 +47,13 @@ router.get('/', async(req,res)=>{
     if(utencilios){
         utencilios.map(uti=>{
             and.push({utencilios: new RegExp(uti,'i')});
+        })
+        console.log(and);
+        filtro.$and=and;
+    }
+    if(etiquetas){
+        utencilios.map(uti=>{
+            and.push({etiquetas: new RegExp(uti,'i')});
         })
         console.log(and);
         filtro.$and=and;

@@ -71,7 +71,8 @@ Content-Type: application/json
 
 {
     "ingredientes": ["Leche","Cereza"],
-    "categoria": ["Desayuno"]
+    "categoria": "Desayuno",
+    "etiquetas": []
 }
 ###
 
