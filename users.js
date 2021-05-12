@@ -68,9 +68,8 @@ router.post("/", async (req, res) => {
     return res
       .status(400)
       .send(
-        comprobacion.email == email
-          ? "Ya existe un usuario con ese correo"
-          : "Ya existe un usuario con ese usuername"
+        "Ya existe un usuario con ese correo"
+  
       );
 
   let usuario = new User(tempUser);
