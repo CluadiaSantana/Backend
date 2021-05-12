@@ -9,12 +9,21 @@ const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
 window.onload = function () {
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
       document.getElementById("crear").classList.add("oculto");
+    }else{
+        document.getElementById("crear").classList.remove("oculto");
     }
     if (sessionStorage.token) {
         document.getElementById("linkreg").classList.add("oculto");
-        document.getElementById("login").innerText("logout");
+        document.getElementById("login").innerText="logout";
+    }else{
+        document.getElementById("linkreg").classList.remove("oculto");
+        document.getElementById("login").innerText="login";
     }
 };
+document.getElementById("login").addEventListener("click", function () {
+    sessionStorage.token = null;
+    sessionStorage.us=null;
+  });
 
 async function load(pg){
     if(pg==undefined){
@@ -74,12 +83,18 @@ function recipeToHtml(recipe){
     <td width="50px">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-            <a class="btn-sm btn-primary text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-            <a class="confirmation btn-sm btn-danger text-center" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+            <a class="btn-sm btn-primary text-center " href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
+            <a class="confirmation btn-sm btn-danger text-center ${editarbotton(recipe.correo)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
     </tr>
     `
+}
+function editarbotton(correo){
+    if(sessionStorage.us=="regular"){
+        return("oculto")
+    }else if(sessionStorage.us=="chef")
+    if()
 }
 
 function listing(ingre){

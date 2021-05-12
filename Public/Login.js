@@ -1,5 +1,6 @@
 sessionStorage.token;
 sessionStorage.us;
+sessionStorage.email;
 
 //logear usuario
 let datos=document.querySelector('#datoslogin');
@@ -26,6 +27,7 @@ entrar.addEventListener("click", async function(e){
         // guardar el token del usuario
         sessionStorage.token=token[1].token;
         sessionStorage.us=token[0];
+        sessionStorage.email=token[2];
         //llevar a la de inicio
         window.location.href="Index.html";
     }else{
