@@ -23,6 +23,7 @@ function authPer(token) {
   }
 
 router.get('/', async(req,res)=>{
+    let {sk}=req.query;
     let {nombre,ingredientes,categoria, utencilios,correo}= req.body;
     let filtro={};
     let and=[];
@@ -62,10 +63,9 @@ router.get('/', async(req,res)=>{
         }else{
             filtro.correo = correo;
         }
-
     }
-    console.log(filtro);
-    let lista= await Recipe.getRecipe(filtro);
+    //console.log(filtro);
+    let lista= await Recipe.getRecipe(filtro,sk);
     if(lista[0]){
         res.status(200).send(lista);
         return;
