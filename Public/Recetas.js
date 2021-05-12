@@ -4,16 +4,126 @@ let recetas=[];
 let np;
 //numero de pagina actual
 let numeropag;
-const secret = "gH$iDa&T0Gr3&@kTcly09DB#$FcC3tNGBQvVCf@M";
+//receta ocn la que se esta trabajando
+let recetaactual;
+//model de ver
+let verr=document.querySelector('#recetaver');
+//model de editar
+let edi=document.querySelector('#Editt');
+//boton actualizar
+let actualizar=document.querySelector('#Actualizar');
+//boton crear nueva receta
+let guardarrecer=document.querySelector('#guardcrear');
 
-window.onload = function () {
+let ingred;
+async function listing_ingredients() {
+    ingred = await fetch(`http://127.0.0.1:3000/api/ingredientes`, {
+      method: "GET",
+      headers: {
+        "x-auth": sessionStorage.token,
+      },
+    }).then((res) => res.json());
+  }
+
+ function insert_ingredients(id) {
+    let select = document.getElementById(id);
+    for (let i = 0; i < ingred.length; i++) {
+      let option = document.createElement("option");
+      option.innerHTML =
+        "<option value='" +
+        ingred[i].nombre +
+        "'>" +
+        ingred[i].nombre +
+        " </option> ";
+      
+      select.appendChild(option.firstChild);
+    }
+  } 
+  
+  async function listing_utensilios(id) {
+    let utensilio = await fetch(`http://127.0.0.1:3000/api/Utensilio`, {
+      method: "GET",
+      headers: {
+        "x-auth": sessionStorage.token,
+      },
+    }).then((res) => res.json());
+    let select = document.getElementById(id);
+    for (let i = 0; i < utensilio.length; i++) {
+      let option = document.createElement("option");
+      option.innerHTML =
+        "<option value='" +
+        utensilio[i].nombre +
+        "'>" +
+        utensilio[i].nombre +
+        " </option> ";
+      select.appendChild(option.firstChild);
+    }
+  }
+  
+  async function buscar(e) {
+    e.preventDefault();
+    let ingrediente = document.getElementById("select-ingredientes").value;
+    let string = "";
+    if (ingrediente ) string = `ingredientes=${ingrediente}`
+  
+    let utensilio = document.getElementById("select-utensilio").value;
+    if(utensilio){
+      if(string.length>1){
+        string += `&utencilios=${utensilio}`
+      }
+      else
+        string=`utencilios=${utensilio}`
+        
+    }
+  
+    let categoria = document.getElementById("select-categorias").value;
+    if(categoria){
+      if(string.length>1){
+        string += `&categoria=${categoria}`
+      }
+      else
+        string=`categoria=${categoria}`
+        
+    }
+  
+    let etiqueta = document.getElementById("select-etiqueta").value;
+    if(etiqueta){
+      if(string.length>1){
+        string += `&etiquetas=${etiqueta}`
+      }
+      else
+        string=`etiquetas=${etiqueta}`    
+    }
+  
+  
+    
+  
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+    };
+    fetch(
+      `http://127.0.0.1:3000/api/Recipe?${string}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => recetasListToHTML(result));
+  }
+  document.getElementById("buscar").addEventListener("click", buscar);
+
+window.onload = async function () {
+    await listing_ingredients();
+    listing_utensilios("select-utensilio");
+    insert_ingredients("select-ingredientes");
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
       document.getElementById("crear").classList.add("oculto");
     }else{
         document.getElementById("crear").classList.remove("oculto");
     }
     if (sessionStorage.token) {
-        document.getElementById("linkreg").classList.add("oculto");
+        //document.getElementById("linkreg").classList.add("oculto");
         document.getElementById("login").innerText="logout";
     }else{
         document.getElementById("linkreg").classList.remove("oculto");
@@ -57,7 +167,7 @@ function recipeToHtml(recipe){
     return`
     <tr>
     <td>${recipe.nombre}</td>
-    <td>${recipe.nombre}</td>
+    <td>${recipe.categoria}</td>
     <td>
         <ul>
             ${listing(recipe.ingredientes)}
@@ -70,21 +180,19 @@ function recipeToHtml(recipe){
     </td>
     <td>
         <ul>
-            <li>Rapidas</li>
-            <li>Favoritos</li>
-            <li>Con Tortilla</li>
+        ${list(recipe.etiquetas)}
         </ul>
     </td>
     <td>
         <img class="brand-logo-light"
-    src=${recipe.imagen}
+    src=${recipe.url}
     alt="" width="140">
     </td>
     <td width="50px">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <a class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
-            <a class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-            <a class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+            <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
+            <a onclick="editarrect('${recipe._id}')" class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
+            <a onclick="borrarreceta('${recipe._id}')"class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
     </tr>
@@ -120,15 +228,6 @@ function listing(ingre){
     return(r);
 }
 
-function listing_ingredients(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<option value='"+ingre[i].nombre+"'>"+ingre[i].nombre+" </option> ";
-    }
-    return(r);
-}
-
-
 function list(type){
     let r="";
     for(let i=0;i<type.length;i++){
@@ -147,7 +246,209 @@ function recetasListToHTML(recetasl){
     }
 }
 
+async function actual(id){
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${id}`,{
+        method: 'GET',
+        headers:{
+            'x-auth': sessionStorage.token
+        },
+    });
+    if(resp.status==200){
+        //log('cargo datos')
+        let s= await resp.json();
+        recetaactual=s[1];
+    }else{
+        alert('Ha ocurrido un error');
+    }
+}
 
+function listver(ele,list){
+    while (ele.firstChild){
+        ele.removeChild(ele.firstChild);
+      };
+    for (let i = 0; i < list.length; i++) {
+        let li = document.createElement("li");
+        li.innerHTML =
+        "<li>" +
+        list[i] +
+        " </li> ";
+        ele.appendChild(li.firstChild);
+  }
+}
+function listvering(ele,list){
+    while (ele.firstChild){
+        ele.removeChild(ele.firstChild);
+      };
+    for (let i = 0; i < list.length; i++) {
+        let li = document.createElement("li");
+        li.innerHTML =
+        "<li>" +
+        list[i].cantidad +" "+
+        list[i].nombre +
+        " </li> ";
+        ele.appendChild(li.firstChild);
+  }
+}
+
+async function verdetalle(id){
+    await actual(id);
+    console.log(recetaactual[0].nombre);
+    document.querySelector('#Nombrever').innerText=recetaactual[0].nombre;
+    verr.querySelector('#vercat').innerText=recetaactual[0].categoria;
+    verr.querySelector('#imaagen').src=recetaactual[0].url;
+    let ele = document.getElementById("verute");
+    listver(ele,recetaactual[0].utencilios);
+    ele = document.getElementById("veringr");
+    listvering(ele,recetaactual[0].ingredientes);
+    verr.querySelector('#verproc').innerText=recetaactual[0].receta;
+    ele = document.getElementById("vereti");
+    listver(ele,recetaactual[0].etiquetas);
+}
+
+function listedi(ele,list){
+    while (ele.firstChild){
+        ele.removeChild(ele.firstChild);
+      };
+      
+      for (let i = 0; i < list.length; i++) {
+        let li = document.createElement("li");
+        li.innerHTML =
+        `<select class="form-control" disabled><option>` +
+        list[i] +
+        " </option></select> ";
+        ele.appendChild(li.firstChild);
+  }
+      ;
+}
+
+async function editarrect(id){
+    await actual(id);
+    edi.querySelector('#editnombre').value=recetaactual[0].nombre;
+    edi.querySelector('#select-categorias1').value=recetaactual[0].categoria;
+    let ele = document.getElementById("editut");
+    log(recetaactual[0].utencilios)
+    listedi(ele,recetaactual[0].utencilios);
+    edi.querySelector('#Porced').innerText=recetaactual[0].receta;
+    log(recetaactual[0].etiquetas)
+    ele = document.getElementById("etiqb");
+    listedi(ele,recetaactual[0].etiquetas);
+}
+
+async function borrarreceta(id){
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${id}`,{
+        method: 'DELETE',
+        headers:{
+            'x-auth': sessionStorage.token}
+    });
+    console.log(resp.status);
+    if(resp.status==200){
+        log('Receta');
+    }else{
+        alert('Ha ocurrido un error');
+    }
+    paginado(0);
+}
+
+actualizar.addEventListener("click", async function(e){
+    e.preventDefault();
+    let f={
+        "nombre": edi.querySelector('#editnombre').value,
+        "ingredientes":recetaactual[0].ingredientes,
+        "receta": edi.querySelector('#Porced').innerText,
+        "categoria":edi.querySelector('#select-categorias1').value,
+        "utencilios":recetaactual[0].utencilios,
+        "etiquetas":recetaactual[0].etiquetas,
+        "correo":recetaactual[0].correo
+    }
+    let imp=JSON.stringify(f);
+    console.log(imp);
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${recetaactual[0]._id}`,{
+        method: 'PUT',
+        headers:{
+            'x-auth': sessionStorage.token,
+            'Content-Type': 'application/json'},
+        body: imp
+    });
+    console.log(resp.status);
+    if(resp.status==200){
+        paginado(0);
+        alert('El usuario se ha Actualizado')
+        log('Actualizado');
+    }else{
+        alert('Ha ocurrido un error');
+    }
+})
+
+async function nuevareceta(){
+    await listing_ingredients();
+    await insert_ingredients("select-ingredientes1");
+    await insert_ingredients("select-ingredientes2");
+    await insert_ingredients("select-ingredientes3");
+    await insert_ingredients("select-ingredientes4");
+    await insert_ingredients("select-ingredientes5");
+}
+
+guardarrecer.addEventListener("click", async function(e){
+    e.preventDefault();
+    let inc=[];
+    class ing{
+        constructor(nombre,cantidad){
+            this.nombre=nombre;
+            this.cantidad=cantidad;
+        }
+      }
+    for(let h=1;h<4;h++){
+        if(document.querySelector(`#select-ingredientes${h}`).value!=0){
+            let nom=document.querySelector(`#select-ingredientes${h}`).value;
+            let cant=document.querySelector(`#select-cantidad${h}`).value;
+            log(nom);
+            inc.push(new ing(nom,cant));
+        }
+    }
+    let ute=[];
+    for(let h=1;h<4;h++){
+        if(document.querySelector(`#ut${h}`).value!=0){
+            ute.push(document.querySelector(`#ut${h}`).value);
+        }
+    }
+    let eti=[];
+    for(let h=1;h<3;h++){
+        if(document.querySelector(`#select-etiqueta${h}`).value!=0){
+            eti.push(document.querySelector(`#select-etiqueta${h}`).value);
+        }
+    }
+    console.log(inc);
+    console.log(ute);
+    let u=document.querySelector('#urlcrear').value;
+    let f={
+        "nombre": document.querySelector('#Nuevonombre').value,
+        "ingredientes":inc,
+        "receta": document.querySelector('#Proc').value,
+        "categoria":document.querySelector('#cat1').value,
+        "utencilios":ute,
+        "etiquetas":eti,
+        "correo":sessionStorage.email,
+        "url": u
+
+    }
+    let imp=JSON.stringify(f);
+    console.log(imp);
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe`,{
+        method: 'POST',
+        headers:{
+            'x-auth': sessionStorage.token,
+            'Content-Type': 'application/json'},
+        body: imp
+    });
+    console.log(resp.status);
+    if(resp.status==201){
+        paginado(0);
+        alert('Se ha creado nueva receta')
+        log('Receta');
+    }else{
+        alert('Ha ocurrido un error');
+    }
+})
 
 //pone los botones necesarios
 function agregarboton(){
