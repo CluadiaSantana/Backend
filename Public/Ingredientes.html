@@ -199,12 +199,9 @@
                 <li  class="nav-item">
                 <a id = "login" class="nav-link"  href="Login.html">Login</a>
                 </li>
-
             </ul>
-
         </div>
         </div>
-
     </nav>
     <div class="container">
         <div class="row">
@@ -240,6 +237,272 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade"  id="detalleEditar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Ingrediente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="col-10 center-block" id="Editt">
+                        <div class="form-row">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group  justify-content-center was-validated">
+                                        <label for="inputEmail4">Nombre del ingrediente</label>
+                                        <input type="text" class="form-control" id="editnombre" value="" required
+                                            pattern="[a-zA-Z\s]+" autofocus>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="Actualizar" data-dismiss="modal">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detalle" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Recetas</h5>
+                <button type="button" onclick="nuevaingrediente()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="col-10 center-block">
+                    <div class="form-row">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group  justify-content-center" >
+                                    <label for="inputEmail4" >Nombre de la ingrediente</label>
+                                    <input type="text" class="form-control" id="Nuevonombre"   required
+                                    pattern="[a-zA-Z\s]+" >
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Categoría 1</label>
+                                    </div>
+                                    <select class="custom-select" id="cat1">
+                                        <option selected value="0">Seleccionar...</option>
+                                        <option value="Mexicana">Mexicana</option>
+                                        <option value="Italiana">Italiana</option>
+                                        <option value="Francesa">Francesa</option>
+                                        <option value="China">China</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="utenciliosCrear">
+
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 1</label>
+                                    </div>
+                                    <select class="custom-select" id="ut1">
+                                        <option selected value="0">Seleccionar...</option>
+                                        <option value="Licuadora">Licuadora</option>
+                                        <option value="Estufa">Estufa</option>
+                                        <option value="Batidora">Batidora</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 2</label>
+                                    </div>
+                                    <select class="custom-select" id="ut2">
+                                        <option selected value="0">Seleccionar...</option>
+                                        <option value="Licuadora">Licuadora</option>
+                                        <option value="Estufa">Estufa</option>
+                                        <option value="Batidora">Batidora</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 3</label>
+                                    </div>
+                                    <select class="custom-select" id="ut3">
+                                        <option selected value="0">Seleccionar...</option>
+                                        <option value="Licuadora">Licuadora</option>
+                                        <option value="Estufa">Estufa</option>
+                                        <option value="Batidora">Batidora</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="Ing1">
+
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    
+                                                
+                                    <label for="floatingTextarea2">Ingrediente</label>
+                                    <div id="Ingrdagr">
+                                        <select class="form-control" id='select-ingredientes1'>
+                                            <option selected value="0">Elegir</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="floatingTextarea2">Cantidad</label>
+                                    <input type="text" class="form-control" id="select-cantidad1" value="" required
+                                    pattern="[a-zA-Z\s]+" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    
+                                                
+                                    <label for="floatingTextarea2">Ingrediente</label>
+                                    <div id="Ingrdagr">
+                                        <select class="form-control" id='select-ingredientes2'>
+                                            <option selected value="0">Elegir</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="floatingTextarea2">Cantidad</label>
+                                    <input type="text" class="form-control" id="select-cantidad2" value="" required
+                                    pattern="[a-zA-Z\s]+" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    
+                                                
+                                    <label for="floatingTextarea2">Ingrediente</label>
+                                    <div id="Ingrdagr">
+                                        <select class="form-control" id='select-ingredientes3'>
+                                            <option selected value="0">Elegir</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="floatingTextarea2">Cantidad</label>
+                                    <input type="text" class="form-control" id="select-cantidad3" value="" required
+                                    pattern="[a-zA-Z\s]+" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    
+                                                
+                                    <label for="floatingTextarea2">Ingrediente</label>
+                                    <div id="Ingrdagr">
+                                        <select class="form-control" id='select-ingredientes4'>
+                                            <option selected value="0">Elegir</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="floatingTextarea2">Cantidad</label>
+                                    <input type="text" class="form-control" id="select-cantidad4" value="" required
+                                    pattern="[a-zA-Z\s]+" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    
+                                                
+                                    <label for="floatingTextarea2">Ingrediente</label>
+                                    <div id="Ingrdagr">
+                                        <select class="form-control" id='select-ingredientes5'>
+                                            <option selected value="0">Elegir</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="floatingTextarea2">Cantidad</label>
+                                    <input type="text" class="form-control" id="select-cantidad5" value="" required
+                                    pattern="[a-zA-Z\s]+" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <label for="Proc">Procedimiento</label>
+                                    <textarea class="form-control" placeholder="Escribe aquí tu procedimiento" id="Proc" style="height: 100px"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12" style="margin-top:0.3cm;">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Etiqueta 1</label>
+                                    </div>
+                                    <select class="form-control" id='select-etiqueta1'>
+                                        <option value="0" selected>Seleccionar...</option>
+                                        <option value="Favoritos">Favoritos</option>
+                                        <option value="Rapidas">Rapidas</option>
+                                        <option value="Botaniux">Botaniux</option>
+                                        <option value="niños">niños</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12" style="margin-top:0.3cm;">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Etiqueta 2</label>
+                                    </div>
+                                    <select class="form-control" id='select-etiqueta2'>
+                                        <option value="0" selected>Seleccionar...</option>
+                                        <option value="Favoritos">Favoritos</option>
+                                        <option value="Rapidas">Rapidas</option>
+                                        <option value="Botaniux">Botaniux</option>
+                                        <option value="niños">niños</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group  justify-content-center">
+                                    <label for="inputEmail4">Url</label>
+                                    <input type="text" class="form-control" id="urlcrear" value=""
+                                    pattern="[a-zA-Z\s]+" autofocus>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary " id="guardcrear" data-dismiss="modal">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- / Desde aqui es del pie de pagina / -->
     <footer class="section footer-classic context-dark bg-image mb-0" style="background: #2d3246;">
         <div class="container">
@@ -249,7 +512,7 @@
                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQY_rBl8o-PMAJZqa03cWj4SWrXIGd9W3V2A&usqp=CAU"
                                 alt="" width="140" height="37"
                                 srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
-                        <p>Nuestro recetario esta hecho especialmente para ti, se parte de nuestra gran famila</p>
+                        <p>Nuestro ingredienterio esta hecho especialmente para ti, se parte de nuestra gran famila</p>
                         <!-- Rights-->
                         <p class="rights"><span>©  </span><span
                                 class="copyright-year">2018</span><span> </span><span>Waves</span><span>. </span><span>All

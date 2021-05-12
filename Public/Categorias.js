@@ -58,52 +58,6 @@ function categoriaToHtml(categoria){
     </tr>
     `
 }
-function editarbotton(correo){
-    if(sessionStorage.us=="regular" || sessionStorage.us==null){
-        return("oculto")
-    }else if(sessionStorage.us=="chef"){
-        if((sessionStorage.email).toUpperCase()==correo.toUpperCase()){
-            return;
-        }else{
-            return("oculto");
-        }
-    }else{
-        return;
-    }
-    
-}
-function borrabotton(correo){
-    if(sessionStorage.us!="admin"){
-        return("oculto")
-    }else{
-        return;
-    }
-}
-
-function listing(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<li>"+ingre[i].nombre+" "+ingre[i].cantidad+"</li>";
-    }
-    return(r);
-}
-
-function listing_ingredients(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<option value='"+ingre[i].nombre+"'>"+ingre[i].nombre+" </option> ";
-    }
-    return(r);
-}
-
-
-function list(type){
-    let r="";
-    for(let i=0;i<type.length;i++){
-        r+="<li>"+type[i]+"</li>";
-    }
-    return(r);
-}
 
 function categoriasListToHTML(categoriasl){
     //limpipa la pantalla
@@ -115,8 +69,6 @@ function categoriasListToHTML(categoriasl){
         document.querySelector('#listaCategorias').insertAdjacentHTML('beforeend',categoriaToHtml(categoriasl[i]));
     }
 }
-
-
 
 //pone los botones necesarios
 function agregarboton(){
