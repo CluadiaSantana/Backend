@@ -42,27 +42,25 @@ async function authAdmin(req, res, next) {
 }
 
 router.post("/", async (req, res) => {
-  let { username, email, password, nombre, apellido } = req.body;
+  let { email, password, nombre, apellido } = req.body;
   var faltantes = [];
-  if (!username) faltantes.push("Usuario");
   if (!email) faltantes.push("Correo");
   if (!password) faltantes.push("Contraseña");
   if (!nombre) faltantes.push("Nombre");
   if (!apellido) faltantes.push("Apellido");
   if (faltantes.length > 0)
-    res
+    return res
       .status(400)
       .send("Faltaron los siguientes campos: " + faltantes.join(", "));
 
   let hashedPassword = bcrypt.hashSync(password, 10);
   let tempUser = {
-    username,
     email,
     nombre: nombre + " " + apellido,
     password: hashedPassword,
   };
   let comprobacion = await Usuario.findOne({
-    $or: [{ email }, { username }],
+    $or: [{ email }],
   }).then((user) => {
     return user;
   });

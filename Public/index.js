@@ -57,6 +57,28 @@ async function buscar(e) {
       
   }
 
+  let categoria = document.getElementById("select-categorias").value;
+  if(categoria){
+    if(string.length>1){
+      string += `&categoria=${categoria}`
+    }
+    else
+      string=`categoria=${categoria}`
+      
+  }
+
+  let etiqueta = document.getElementById("select-etiqueta").value;
+  if(etiquea){
+    if(string.length>1){
+      string += `&etiquetas=${etiqueta}`
+    }
+    else
+      string=`etiquetas=${etiqueta}`    
+  }
+
+
+  
+
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   var requestOptions = {
