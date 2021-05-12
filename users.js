@@ -152,7 +152,6 @@ router.put("/:email", async (req, res) => {
 });
 
 router.post("/Login", async (req, res) => {
-  console.log(`el body es `);
   let { email, password } = req.body;
   var faltantes = [];
   if (!email) faltantes.push("Correo");
@@ -165,18 +164,24 @@ router.post("/Login", async (req, res) => {
   let user = await Usuario.findOne({ email }).then((user) => {
     return user;
   });
-  // if (!user)
-  //   res.status(401).send("No hay un usuario registrado con ese correo");
-  // if (!bcrypt.compareSync(password, user.password))
-  //   res.status(401).send("Constraseña incorrecta");
-
+  if (!user){
+    res.status(401).send("No hay un usuario registrado con ese correo");
+    return
+  }
+  if (!bcrypt.compareSync(password, user.password)){
+    res.status(401).send("Constraseña incorrecta");
+    return
+  }
   let response = {
     email: user.email,
     nombre: user.nombre,
     rol: user.rol,
   };
   let token = jwt.sign(response, secret);
-  res.status(200).send({ token });
+  let us=[];
+  us.push(response.rol);
+  us.push({token})
+  res.status(200).send(us);
 });
 
 module.exports = router;

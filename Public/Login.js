@@ -1,8 +1,9 @@
 sessionStorage.token;
+sessionStorage.us;
 
 //logear usuario
 let datos=document.querySelector('#datoslogin');
-let entrar=datos.querySelector('#entrar');
+let entrar=datos.querySelector('#Entrar');
 
 
 entrar.addEventListener("click", async function(e){
@@ -16,15 +17,15 @@ entrar.addEventListener("click", async function(e){
     let resp= await fetch("http://127.0.0.1:3000/api/User/Login",{
         method: 'POST',
         headers:{'Content-Type': 'application/json'},
-        mode: 'no-cors',
+       // mode: 'no-cors',
         body: imp
     });
     console.log(resp.status);
     if(resp.status==200){
         let token= await resp.json();
         // guardar el token del usuario
-        sessionStorage.token=token.token;
-        log('inicio sesion');
+        sessionStorage.token=token[1].token;
+        sessionStorage.us=token[0];
         //llevar a la de inicio
         window.location.href="Index.html";
     }else{
