@@ -27,7 +27,7 @@ async function load(pg){
         sk=pg*6
     }
     //pedir los datos con fetch
-    let resp= await fetch(`http://127.0.0.1:3000/api/Ingrediente`,{
+    let resp= await fetch(`http://127.0.0.1:3000/api/Ingredientes`,{
         method: 'GET',
         headers:{
             'x-auth': sessionStorage.token
@@ -55,6 +55,12 @@ function ingredienteToHtml(ingrediente){
     <tr>
         <td>${ingrediente.nombre}</td>
         <td>${ingrediente.medida}</td>
+        <td width="50px">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a onclick="editarrect('${ingrediente._id}')" class="btn-sm btn-primary text-center ${editarbotton(ingrediente.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
+            <a onclick="borrarreceta('${ingrediente._id}')"class="confirmation btn-sm btn-danger text-center ${borrabotton(ingrediente)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+        </div>
+    </td>
     </tr>
     `
 }
@@ -72,6 +78,7 @@ function editarbotton(correo){
     }
     
 }
+
 function borrabotton(correo){
     if(sessionStorage.us!="admin"){
         return("oculto")
@@ -79,32 +86,6 @@ function borrabotton(correo){
         return;
     }
 }
-
-function listing(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<li>"+ingre[i].nombre+" "+ingre[i].cantidad+"</li>";
-    }
-    return(r);
-}
-
-function listing_ingredients(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<option value='"+ingre[i].nombre+"'>"+ingre[i].nombre+" </option> ";
-    }
-    return(r);
-}
-
-
-function list(type){
-    let r="";
-    for(let i=0;i<type.length;i++){
-        r+="<li>"+type[i]+"</li>";
-    }
-    return(r);
-}
-
 function ingredientesListToHTML(ingredientesl){
     //limpipa la pantalla
     listaIngredientes.innerText="";

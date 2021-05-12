@@ -58,52 +58,6 @@ function categoriaToHtml(categoria){
     </tr>
     `
 }
-function editarbotton(correo){
-    if(sessionStorage.us=="regular" || sessionStorage.us==null){
-        return("oculto")
-    }else if(sessionStorage.us=="chef"){
-        if((sessionStorage.email).toUpperCase()==correo.toUpperCase()){
-            return;
-        }else{
-            return("oculto");
-        }
-    }else{
-        return;
-    }
-    
-}
-function borrabotton(correo){
-    if(sessionStorage.us!="admin"){
-        return("oculto")
-    }else{
-        return;
-    }
-}
-
-function listing(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<li>"+ingre[i].nombre+" "+ingre[i].cantidad+"</li>";
-    }
-    return(r);
-}
-
-function listing_ingredients(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<option value='"+ingre[i].nombre+"'>"+ingre[i].nombre+" </option> ";
-    }
-    return(r);
-}
-
-
-function list(type){
-    let r="";
-    for(let i=0;i<type.length;i++){
-        r+="<li>"+type[i]+"</li>";
-    }
-    return(r);
-}
 
 function utenciliosListToHTML(utenciliosl){
     //limpipa la pantalla
@@ -114,22 +68,6 @@ function utenciliosListToHTML(utenciliosl){
     for(let i=0;i<utenciliosl.length;i++){
         document.querySelector('#listaUtencilios').insertAdjacentHTML('beforeend',categoriaToHtml(utenciliosl[i]));
     }
-}
-
-
-
-//pone los botones necesarios
-function agregarboton(){
-    //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
-    document.querySelector('.pagination').innerText='';
-    let agregar=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('p')" id="prev">Previous</button></li>`;
-    let paginas=np/6
-    //log(`numero de paginas ${paginas}`);
-    for(let i=1;i<paginas+1;i++){
-        agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i-1}')" id='bot${i-1}' >${i}</button></li>`
-    }
-    agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
-    document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
 }
 
 //hace la division de los usuarios en paginas

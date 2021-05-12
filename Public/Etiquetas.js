@@ -1,5 +1,5 @@
 function log(val) { console.log("683153",val); }
-let categorias=[];
+let tags=[];
 //numero de registros
 let np;
 //numero de pagina actual
@@ -27,7 +27,7 @@ async function load(pg){
         sk=pg*6
     }
     //pedir los datos con fetch
-    let resp= await fetch(`http://127.0.0.1:3000/api/Categoria`,{
+    let resp= await fetch(`http://127.0.0.1:3000/api/Tag`,{
         method: 'GET',
         headers:{
             'x-auth': sessionStorage.token
@@ -35,11 +35,11 @@ async function load(pg){
     });
     if(resp.status==200){
         //log('cargo datos')
-        categorias= await resp.json();
+        tags= await resp.json();
         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
-        categoriasListToHTML(categorias);
-        // console.log(categorias);
-        np=categorias[0]
+        tagsListToHTML(tags);
+        // console.log(tags);
+        np=tags[0]
         //log(np);
         agregarboton();
         //poner botones de busqueda necesarios
@@ -49,26 +49,74 @@ async function load(pg){
     }
 }
 
-function categoriaToHtml(categoria){
+function tagToHtml(tag){
     console.log(sessionStorage);
     return`
     <tr>
-        <td>${categoria.nombre}</td>
+        <td>${tag.nombre}</td>
  
     </tr>
     `
 }
-
-function categoriasListToHTML(categoriasl){
-    //limpipa la pantalla
-    listaCategorias.innerText="";
-    console.log(categoriasl)
-    //pone los nuevos datos en pantalla
-    //document.querySelector('#listacategorias').insertAdjacentHTML('beforeend',categoriaToHtml(categoriasl[0]));
-    for(let i=0;i<categoriasl.length;i++){
-        document.querySelector('#listaCategorias').insertAdjacentHTML('beforeend',categoriaToHtml(categoriasl[i]));
+function editarbotton(correo){
+    if(sessionStorage.us=="regular" || sessionStorage.us==null){
+        return("oculto")
+    }else if(sessionStorage.us=="chef"){
+        if((sessionStorage.email).toUpperCase()==correo.toUpperCase()){
+            return;
+        }else{
+            return("oculto");
+        }
+    }else{
+        return;
+    }
+    
+}
+function borrabotton(correo){
+    if(sessionStorage.us!="admin"){
+        return("oculto")
+    }else{
+        return;
     }
 }
+
+function listing(ingre){
+    let r="";
+    for(let i=0;i<ingre.length;i++){
+        r+="<li>"+ingre[i].nombre+" "+ingre[i].cantidad+"</li>";
+    }
+    return(r);
+}
+
+function listing_ingredients(ingre){
+    let r="";
+    for(let i=0;i<ingre.length;i++){
+        r+="<option value='"+ingre[i].nombre+"'>"+ingre[i].nombre+" </option> ";
+    }
+    return(r);
+}
+
+
+function list(type){
+    let r="";
+    for(let i=0;i<type.length;i++){
+        r+="<li>"+type[i]+"</li>";
+    }
+    return(r);
+}
+
+function tagsListToHTML(tagsl){
+    //limpipa la pantalla
+    listaTags.innerText="";
+    console.log(tagsl)
+    //pone los nuevos datos en pantalla
+    //document.querySelector('#listatags').insertAdjacentHTML('beforeend',tagToHtml(tagsl[0]));
+    for(let i=0;i<tagsl.length;i++){
+        document.querySelector('#listaTags').insertAdjacentHTML('beforeend',tagToHtml(tagsl[i]));
+    }
+}
+
+
 
 //pone los botones necesarios
 function agregarboton(){
