@@ -93,6 +93,15 @@ function listing(ingre){
     return(r);
 }
 
+function listing_ingredients(ingre){
+    let r="";
+    for(let i=0;i<ingre.length;i++){
+        r+="<option value='"+ingre[i].nombre+"'>"+ingre[i].nombre+" </option> ";
+    }
+    return(r);
+}
+
+
 function list(type){
     let r="";
     for(let i=0;i<type.length;i++){
