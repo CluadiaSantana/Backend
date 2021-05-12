@@ -6,6 +6,8 @@ let np;
 let numeropag;
 //receta ocn la que se esta trabajando
 let recetaactual;
+//model de ver
+let verr=document.querySelector('#recetaver');
 
 window.onload = function () {
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
@@ -54,33 +56,33 @@ async function load(pg){
     }
 }
 
-async function bod(){
-    let params={
-        "ingredientes": "Leche",
-        "categoria": "Desayuno",
-        "utencilios": "Plato",
-    }
-    let query = Object.keys(params)
-             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-             .join('&');
-    console.log(query);
+// async function bod(){
+//     let params={
+//         "ingredientes": "Leche",
+//         "categoria": "Desayuno",
+//         "utencilios": "Plato",
+//     }
+//     let query = Object.keys(params)
+//              .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+//              .join('&');
+//     log(query);
     
-    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/?sk=0&${query}`,{
-        method: 'GET',
-        headers:{
-            'x-auth': sessionStorage.token
-        }
-    });
-    if(resp.status==200){
-        //log('cargo datos')
-        recetas= await resp.json();
-        //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
-        recetasListToHTML(recetas[1]);
+//     let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/?sk=0&${query}`,{
+//         method: 'GET',
+//         headers:{
+//             'x-auth': sessionStorage.token
+//         }
+//     });
+//     if(resp.status==200){
+//         //log('cargo datos')
+//         recetas= await resp.json();
+//         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
+//         recetasListToHTML(recetas[1]);
 
-    }else{
-        alert('Ha ocurrido un error');
-    }
-}
+//     }else{
+//         alert('Ha ocurrido un error');
+//     }
+// }
 
 function recipeToHtml(recipe){
     return`
@@ -192,9 +194,46 @@ async function actual(id){
     }
 }
 
+function listver(ele,list){
+    while (ele.firstChild){
+        ele.removeChild(ele.firstChild);
+      };
+    for (let i = 0; i < list.length; i++) {
+        let li = document.createElement("li");
+        li.innerHTML =
+        "<li>" +
+        list[i] +
+        " </li> ";
+        ele.appendChild(li.firstChild);
+  }
+}
+function listvering(ele,list){
+    while (ele.firstChild){
+        ele.removeChild(ele.firstChild);
+      };
+    for (let i = 0; i < list.length; i++) {
+        let li = document.createElement("li");
+        li.innerHTML =
+        "<li>" +
+        list[i].cantidad +" "+
+        list[i].nombre +
+        " </li> ";
+        ele.appendChild(li.firstChild);
+  }
+}
+
 async function verdetalle(id){
     await actual(id);
     console.log(recetaactual[0].nombre);
+    document.querySelector('#Nombrever').innerText=recetaactual[0].nombre;
+    verr.querySelector('#vercat').innerText=recetaactual[0].categoria;
+    let ele = document.getElementById("verute");
+    listver(ele,recetaactual[0].utencilios);
+    ele = document.getElementById("veringr");
+    listvering(ele,recetaactual[0].ingredientes);
+    verr.querySelector('#verproc').innerText=recetaactual[0].receta;
+    ele = document.getElementById("vereti");
+    listver(ele,recetaactual[0].etiquetas);
 }
 
 //pone los botones necesarios
