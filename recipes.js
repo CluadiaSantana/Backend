@@ -144,7 +144,7 @@ router.put('/:id', async (req,res)=>{
     }else{
         let {nombre,ingredientes,receta, categoria,etiquetas, utencilios,url}= req.body;
         let doc= await Recipe.updateRecipe(req.params.id,{nombre,ingredientes,receta, categoria,etiquetas, utencilios,url});
-        res.send(doc);
+        res.status(200).send(doc);
     }
 })
 

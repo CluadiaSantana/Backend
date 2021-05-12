@@ -10,15 +10,113 @@ let recetaactual;
 let verr=document.querySelector('#recetaver');
 //model de editar
 let edi=document.querySelector('#Editt');
+//boton actualizar
+let actualizar=document.querySelector('#Actualizar');
+
+async function listing_ingredients() {
+    let ingred = await fetch(`http://127.0.0.1:3000/api/ingredientes`, {
+      method: "GET",
+      headers: {
+        "x-auth": sessionStorage.token,
+      },
+    }).then((res) => res.json());
+    let select = document.getElementById("select-ingredientes");
+    for (let i = 0; i < ingred.length; i++) {
+      let option = document.createElement("option");
+      option.innerHTML =
+        "<option value='" +
+        ingred[i].nombre +
+        "'>" +
+        ingred[i].nombre +
+        " </option> ";
+      
+      select.appendChild(option.firstChild);
+    }
+  }
+  
+  async function listing_utensilios(id) {
+    let utensilio = await fetch(`http://127.0.0.1:3000/api/Utensilio`, {
+      method: "GET",
+      headers: {
+        "x-auth": sessionStorage.token,
+      },
+    }).then((res) => res.json());
+    let select = document.getElementById(id);
+    for (let i = 0; i < utensilio.length; i++) {
+      let option = document.createElement("option");
+      option.innerHTML =
+        "<option value='" +
+        utensilio[i].nombre +
+        "'>" +
+        utensilio[i].nombre +
+        " </option> ";
+      select.appendChild(option.firstChild);
+    }
+  }
+  
+  async function buscar(e) {
+    e.preventDefault();
+    let ingrediente = document.getElementById("select-ingredientes").value;
+    let string = "";
+    if (ingrediente ) string = `ingredientes=${ingrediente}`
+  
+    let utensilio = document.getElementById("select-utensilio").value;
+    if(utensilio){
+      if(string.length>1){
+        string += `&utencilios=${utensilio}`
+      }
+      else
+        string=`utencilios=${utensilio}`
+        
+    }
+  
+    let categoria = document.getElementById("select-categorias").value;
+    if(categoria){
+      if(string.length>1){
+        string += `&categoria=${categoria}`
+      }
+      else
+        string=`categoria=${categoria}`
+        
+    }
+  
+    let etiqueta = document.getElementById("select-etiqueta").value;
+    if(etiqueta){
+      if(string.length>1){
+        string += `&etiquetas=${etiqueta}`
+      }
+      else
+        string=`etiquetas=${etiqueta}`    
+    }
+  
+  
+    
+  
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+    };
+    fetch(
+      `http://127.0.0.1:3000/api/Recipe?${string}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => console.log(result));
+  }
+  document.getElementById("buscar").addEventListener("click", buscar);
 
 window.onload = function () {
+    listing_ingredients();
+    listing_utensilios("select-utensilio");
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
       document.getElementById("crear").classList.add("oculto");
     }else{
         document.getElementById("crear").classList.remove("oculto");
     }
     if (sessionStorage.token) {
-        document.getElementById("linkreg").classList.add("oculto");
+        //document.getElementById("linkreg").classList.add("oculto");
         document.getElementById("login").innerText="logout";
     }else{
         document.getElementById("linkreg").classList.remove("oculto");
@@ -58,39 +156,11 @@ async function load(pg){
     }
 }
 
-// async function bod(){
-//     let params={
-//         "ingredientes": "Leche",
-//         "categoria": "Desayuno",
-//         "utencilios": "Plato",
-//     }
-//     let query = Object.keys(params)
-//              .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-//              .join('&');
-//     log(query);
-    
-//     let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/?sk=0&${query}`,{
-//         method: 'GET',
-//         headers:{
-//             'x-auth': sessionStorage.token
-//         }
-//     });
-//     if(resp.status==200){
-//         //log('cargo datos')
-//         recetas= await resp.json();
-//         //una vez teniendo los datos pasarlos a userlist para ponerlos en pantalla
-//         recetasListToHTML(recetas[1]);
-
-//     }else{
-//         alert('Ha ocurrido un error');
-//     }
-// }
-
 function recipeToHtml(recipe){
     return`
     <tr>
     <td>${recipe.nombre}</td>
-    <td>${recipe.nombre}</td>
+    <td>${recipe.categoria}</td>
     <td>
         <ul>
             ${listing(recipe.ingredientes)}
@@ -152,15 +222,6 @@ function listing(ingre){
     }
     return(r);
 }
-
-function listing_ingredients(ingre){
-    let r="";
-    for(let i=0;i<ingre.length;i++){
-        r+="<option value='"+ingre[i].nombre+"'>"+ingre[i].nombre+" </option> ";
-    }
-    return(r);
-}
-
 
 function list(type){
     let r="";
@@ -238,12 +299,64 @@ async function verdetalle(id){
     listver(ele,recetaactual[0].etiquetas);
 }
 
+function listedi(ele,list){
+    while (ele.firstChild){
+        ele.removeChild(ele.firstChild);
+      };
+      
+      for (let i = 0; i < list.length; i++) {
+        let li = document.createElement("li");
+        li.innerHTML =
+        `<select class="form-control" disabled><option>` +
+        list[i] +
+        " </option></select> ";
+        ele.appendChild(li.firstChild);
+  }
+      ;
+}
+
 async function editarrect(id){
     await actual(id);
     edi.querySelector('#editnombre').value=recetaactual[0].nombre;
-    
-    
+    edi.querySelector('#select-categorias1').value=recetaactual[0].categoria;
+    let ele = document.getElementById("editut");
+    log(recetaactual[0].utencilios)
+    listedi(ele,recetaactual[0].utencilios);
+    edi.querySelector('#Porced').innerText=recetaactual[0].receta;
+    log(recetaactual[0].etiquetas)
+    ele = document.getElementById("etiqb");
+    listedi(ele,recetaactual[0].etiquetas);
 }
+
+actualizar.addEventListener("click", async function(e){
+    e.preventDefault();
+    let f={
+        "nombre": edi.querySelector('#editnombre').value,
+        "ingredientes":recetaactual[0].ingredientes,
+        "receta": edi.querySelector('#Porced').innerText,
+        "categoria":edi.querySelector('#select-categorias1').value,
+        "utencilios":recetaactual[0].utencilios,
+        "etiquetas":recetaactual[0].etiquetas,
+        "correo":recetaactual[0].correo
+    }
+    let imp=JSON.stringify(f);
+    console.log(imp);
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${recetaactual[0]._id}`,{
+        method: 'PUT',
+        headers:{
+            'x-auth': sessionStorage.token,
+            'Content-Type': 'application/json'},
+        body: imp
+    });
+    console.log(resp.status);
+    if(resp.status==200){
+        paginado(0);
+        alert('El usuario se ha Actualizado')
+        log('Actualizado');
+    }else{
+        alert('Ha ocurrido un error');
+    }
+})
 //pone los botones necesarios
 function agregarboton(){
     //limpia el html para que si se hace mas de una busqueda no se dupliquen los botones
