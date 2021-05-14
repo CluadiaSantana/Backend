@@ -109,7 +109,7 @@ async function listing_ingredients() {
       requestOptions
     )
       .then((response) => response.json())
-      .then((result) => recetasListToHTML(result));
+      .then((result) => recetasListToHTML(result[0]));
   }
   document.getElementById("buscar").addEventListener("click", buscar);
 
@@ -117,6 +117,11 @@ window.onload = async function () {
     await listing_ingredients();
     listing_utensilios("select-utensilio");
     insert_ingredients("select-ingredientes");
+    insert_ingredients("select-ingredientes1");
+    insert_ingredients("select-ingredientes2");
+    insert_ingredients("select-ingredientes3");
+    insert_ingredients("select-ingredientes4");
+    insert_ingredients("select-ingredientes5");
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
       document.getElementById("crear").classList.add("oculto");
     }else{
@@ -328,10 +333,11 @@ async function editarrect(id){
     let ele = document.getElementById("editut");
     log(recetaactual[0].utencilios)
     listedi(ele,recetaactual[0].utencilios);
-    edi.querySelector('#Porced').innerText=recetaactual[0].receta;
+    edi.querySelector('#Porced').value=recetaactual[0].receta;
     log(recetaactual[0].etiquetas)
     ele = document.getElementById("etiqb");
     listedi(ele,recetaactual[0].etiquetas);
+    edi.querySelector('#editurl').value=recetaactual[0].url;
 }
 
 async function borrarreceta(id){
@@ -353,10 +359,11 @@ actualizar.addEventListener("click", async function(e){
     let f={
         "nombre": edi.querySelector('#editnombre').value,
         "ingredientes":recetaactual[0].ingredientes,
-        "receta": edi.querySelector('#Porced').innerText,
+        "receta": edi.querySelector('#Porced').value,
         "categoria":edi.querySelector('#select-categorias1').value,
         "utencilios":recetaactual[0].utencilios,
         "etiquetas":recetaactual[0].etiquetas,
+        "url":edi.querySelector('#editurl').value,
         "correo":recetaactual[0].correo
     }
     let imp=JSON.stringify(f);
@@ -370,6 +377,7 @@ actualizar.addEventListener("click", async function(e){
     });
     console.log(resp.status);
     if(resp.status==200){
+        paginado(0);
         alert('El usuario se ha Actualizado')
         log('Actualizado');
     }else{
@@ -377,14 +385,6 @@ actualizar.addEventListener("click", async function(e){
     }
 })
 
-async function nuevareceta(){
-    await listing_ingredients();
-    await insert_ingredients("select-ingredientes1");
-    await insert_ingredients("select-ingredientes2");
-    await insert_ingredients("select-ingredientes3");
-    await insert_ingredients("select-ingredientes4");
-    await insert_ingredients("select-ingredientes5");
-}
 
 guardarrecer.addEventListener("click", async function(e){
     e.preventDefault();
@@ -440,9 +440,9 @@ guardarrecer.addEventListener("click", async function(e){
     });
     console.log(resp.status);
     if(resp.status==201){
-        paginado(0);
         alert('Se ha creado nueva receta')
         log('Receta');
+        window.location.href="Recetas.html";
     }else{
         alert('Ha ocurrido un error');
     }

@@ -30,6 +30,9 @@
             -o-background-size: cover;
             background-size: cover;
         }
+        .oculto{
+    display: none;
+  }
 
         section {
             padding-top: 5rem;
@@ -395,6 +398,13 @@
                                         
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="form-group  justify-content-center">
+                                        <label for="inputEmail4">Url</label>
+                                        <input type="text" class="form-control" id="editurl" value="" required
+                                            pattern="[a-zA-Z\s]+" autofocus>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -412,7 +422,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Crear Recetas</h5>
-                <button type="button" onclick="nuevareceta()" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
