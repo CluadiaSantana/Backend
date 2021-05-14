@@ -102,6 +102,27 @@ router.delete("/:email", authAdmin, async (req, res) => {
   res.send("Usuario eliminado");
 });
 
+router.get("/:email", async (req, res) => {
+  let token = req.headers["x-auth"];
+  let decoded;
+  try {
+    decoded = jwt.verify(token, secret);
+  } catch (err) {
+    return res.status(401).send(err);
+  }
+  if (decoded.rol == "admin") {
+    let user = await Usuario.findOne({ email: req.params.email });
+    return res.send(user);
+  }
+  if (decoded.email != req.params.email)
+    return res.status(401).send("No aturoizado");
+
+  let user = await Usuario.findOne({ email: req.params.email }).then((user) => {
+    if (!user) return res.status(404).send("Usuario no encontrado");
+    return res.send(user);
+  });
+});
+
 router.put("/:email", async (req, res) => {
   let update = {};
   let token = req.headers["x-auth"];
@@ -139,7 +160,7 @@ router.put("/:email", async (req, res) => {
     console.log(user);
     if (!user) return res.status(404).send("Usuario no encontrado");
     user.save();
-    res.send("Usuario actualizado");
+    return res.send("Usuario actualizado");
   });
 });
 

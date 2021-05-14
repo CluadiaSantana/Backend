@@ -270,12 +270,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style='text-align:center'>
+                <div class="modal-body" id="eliminar-body" style='text-align:center'>
                     ¿Eliminar usuario?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Eliminar</button>
+                    <button type="button" class="btn btn-danger" id="eliminarConfirmar">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -296,15 +296,20 @@
                 </div>
                 <div class="modal-body">
                     <form class="col-10 center-block">
+                        <select class="custom-select mr-sm-2" id="selectRol">
+                            <option value="admin">Administrador</option>
+                            <option value="chef" >Chef</option>
+                            <option value="regular" >Usuario</option>
+                        </select>
                         <div class="form-row">
                             <div class="form-group col-md-6  justify-content-center was-validated">
-                                <label for="inputEmail4">Nombre</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Arturo" required
+                                <label for="editNombre">Nombre</label>
+                                <input type="text" class="form-control" id="editNombre" value="Arturo" required
                                     pattern="[a-zA-Z\s]+" autofocus>
                             </div>
                             <div class="form-group col-md-6 was-validated">
-                                <label for="inputPassword4">Apellidos</label>
-                                <input type="text" class="form-control" id="inputPassword4" required autofocus
+                                <label for="editApellidos">Apellidos</label>
+                                <input type="text" class="form-control" id="editApellidos" required autofocus
                                     pattern="[a-zA-Z\s]+" value="Corona">
                             </div>
                         </div>
@@ -312,7 +317,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary" id='editGuardar'>Guardar</button>
                 </div>
             </div>
         </div>
@@ -328,10 +333,6 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group was-validated">
-                            <label for="pwd">Contraseña actual</label>
-                            <input type="password" id="pwd" name="pwd" class="form-control" required>
-                        </div>
-                        <div class="form-group was-validated">
                             <label for="pwd">Nueva contraseña</label>
                             <input type="password" id="pwd1" name="pwd" class="form-control" required
                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
@@ -344,7 +345,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                            <button type="submit" class="btn btn-primary" id="confirmarPass"data-dismiss="modal">Guardar</button>
                         </div>
                     </div>
                 </div>
