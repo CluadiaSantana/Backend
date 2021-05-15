@@ -16,7 +16,7 @@ async function listing_ingredients() {
       "'>" +
       ingred[i].nombre +
       " </option> ";
-    
+
     select.appendChild(option.firstChild);
   }
 }
@@ -45,39 +45,33 @@ async function buscar(e) {
   e.preventDefault();
   let ingrediente = document.getElementById("select-ingredientes").value;
   let string = "";
-  if (ingrediente ) string = `ingredientes=${ingrediente}`
+  if (ingrediente) string = `ingredientes=${ingrediente}`;
 
   let utensilio = document.getElementById("select-utensilio").value;
-  if(utensilio){
-    if(string.length>1){
-      string += `&utencilios=${utensilio}`
-    }
-    else
-      string=`utencilios=${utensilio}`
-      
+  if (utensilio) {
+    if (string.length > 1) {
+      string += `&utencilios=${utensilio}`;
+    } else string = `utencilios=${utensilio}`;
   }
 
-  let categoria = document.getElementById("select-categorias").value;
-  if(categoria){
-    if(string.length>1){
-      string += `&categoria=${categoria}`
-    }
-    else
-      string=`categoria=${categoria}`
-      
-  }
+  // let categoria = document.getElementById("select-categorias").value;
+  // if(categoria){
+  //   if(string.length>1){
+  //     string += `&categoria=${categoria}`
+  //   }
+  //   else
+  //     string=`categoria=${categoria}`
 
-  let etiqueta = document.getElementById("select-etiqueta").value;
-  if(etiquea){
-    if(string.length>1){
-      string += `&etiquetas=${etiqueta}`
-    }
-    else
-      string=`etiquetas=${etiqueta}`    
-  }
+  // }
 
-
-  
+  // let etiqueta = document.getElementById("select-etiqueta").value;
+  // if(etiquea){
+  //   if(string.length>1){
+  //     string += `&etiquetas=${etiqueta}`
+  //   }
+  //   else
+  //     string=`etiquetas=${etiqueta}`
+  // }
 
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -85,10 +79,7 @@ async function buscar(e) {
     method: "GET",
     headers: myHeaders,
   };
-  fetch(
-    `http://127.0.0.1:3000/api/Recipe?${string}`,
-    requestOptions
-  )
+  fetch(`http://127.0.0.1:3000/api/Recipe?${string}`, requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result));
 }
@@ -102,7 +93,7 @@ window.onload = function () {
     document.getElementById("Linkreg").classList.add("oculto");
 
     document.getElementById("login").innerText = "logout";
-  }else{
+  } else {
     document.getElementById("Linkreg").classList.remove("oculto");
 
     document.getElementById("login").innerText = "login";

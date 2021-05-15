@@ -65,12 +65,7 @@ router.post("/", async (req, res) => {
     return user;
   });
   if (comprobacion)
-    return res
-      .status(400)
-      .send(
-        "Ya existe un usuario con ese correo"
-  
-      );
+    return res.status(400).send("Ya existe un usuario con ese correo");
 
   let usuario = new User(tempUser);
 
@@ -105,6 +100,27 @@ router.delete("/:email", authAdmin, async (req, res) => {
     return res.status(400).send("hubo un error al eliminar");
   }
   res.send("Usuario eliminado");
+});
+
+router.get("/:email", async (req, res) => {
+  let token = req.headers["x-auth"];
+  let decoded;
+  try {
+    decoded = jwt.verify(token, secret);
+  } catch (err) {
+    return res.status(401).send(err);
+  }
+  if (decoded.rol == "admin") {
+    let user = await Usuario.findOne({ email: req.params.email });
+    return res.send(user);
+  }
+  if (decoded.email != req.params.email)
+    return res.status(401).send("No aturoizado");
+
+  let user = await Usuario.findOne({ email: req.params.email }).then((user) => {
+    if (!user) return res.status(404).send("Usuario no encontrado");
+    return res.send(user);
+  });
 });
 
 router.put("/:email", async (req, res) => {
@@ -144,7 +160,7 @@ router.put("/:email", async (req, res) => {
     console.log(user);
     if (!user) return res.status(404).send("Usuario no encontrado");
     user.save();
-    res.send("Usuario actualizado");
+    return res.send("Usuario actualizado");
   });
 });
 
@@ -161,13 +177,13 @@ router.post("/Login", async (req, res) => {
   let user = await Usuario.findOne({ email }).then((user) => {
     return user;
   });
-  if (!user){
+  if (!user) {
     res.status(401).send("No hay un usuario registrado con ese correo");
-    return
+    return;
   }
-  if (!bcrypt.compareSync(password, user.password)){
+  if (!bcrypt.compareSync(password, user.password)) {
     res.status(401).send("Constraseña incorrecta");
-    return
+    return;
   }
   let response = {
     email: user.email,
@@ -175,9 +191,9 @@ router.post("/Login", async (req, res) => {
     rol: user.rol,
   };
   let token = jwt.sign(response, secret);
-  let us=[];
+  let us = [];
   us.push(response.rol);
-  us.push({token})
+  us.push({ token });
   us.push(response.email);
   res.status(200).send(us);
 });
