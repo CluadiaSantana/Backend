@@ -74,7 +74,12 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", authAdmin, async (req, res) => {
-  if (req.query.nombre) {
+   if(req.query.rol == "Chef" || req.query.rol == "Usuario" ){
+    return Usuario.find({
+      nombre: { $regex: req.query.nombre },
+    })
+   }
+   else if (req.query.nombre) {
     return Usuario.find({
       nombre: { $regex: req.query.nombre },
     }).then((Usuarios) => res.send(Usuarios));
