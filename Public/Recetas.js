@@ -132,10 +132,10 @@ window.onload = async function () {
         document.getElementById("crear").classList.remove("oculto");
     }
     if (sessionStorage.token) {
-        //document.getElementById("linkreg").classList.add("oculto");
+        document.getElementById("Linkreg").classList.add("oculto");
         document.getElementById("login").innerText="logout";
     }else{
-        document.getElementById("linkreg").classList.remove("oculto");
+        document.getElementById("Linkreg").classList.remove("oculto");
         document.getElementById("login").innerText="login";
     }
 };
@@ -386,7 +386,7 @@ actualizar.addEventListener("click", async function(e){
         "correo":recetaactual[0].correo
     }
     let imp=JSON.stringify(f);
-    console.log(imp);
+    //console.log(imp);
     let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${recetaactual[0]._id}`,{
         method: 'PUT',
         headers:{
@@ -394,7 +394,7 @@ actualizar.addEventListener("click", async function(e){
             'Content-Type': 'application/json'},
         body: imp
     });
-    console.log(resp.status);
+    //console.log(resp.status);
     if(resp.status==200){
         paginado(0);
         alert('El usuario se ha Actualizado')
