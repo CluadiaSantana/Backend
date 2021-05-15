@@ -172,7 +172,7 @@
             <div class="input-group mb-0">
                 <div class="input-group-prepend">
                     <div class="input-group" id="adv-search">
-                        <input type="text" class="form-control" placeholder="Search for snippets" />
+                        <input type="text" class="form-control" id="nombrebuscar" placeholder="Buscar receta" />
                         <div class="input-group-btn">
                             <div class="btn-group" role="group">
                                 <div class="dropdown dropdown-lg">
@@ -192,10 +192,10 @@
                                                 <label for="filter">Categorias</label>
                                                 <select class="form-control" id='select-categorias'>
                                                     <option value="0" selected>sin filtro</option>
-                                                    <option value="1">Mexicana</option>
-                                                    <option value="2">Italiana</option>
-                                                    <option value="3">Francesa</option>
-                                                    <option value="4">China</option>
+                                                    <option value="Mexicana">Mexicana</option>
+                                                    <option value="Italiana">Italiana</option>
+                                                    <option value="Francesa">Francesa</option>
+                                                    <option value="China">China</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -208,17 +208,12 @@
                                                 <label for="filter">Etiqueta</label>
                                                 <select class="form-control" id='select-etiqueta'>
                                                     <option value="0" selected>Sin filtro</option>
-                                                    <option value="1">Favoritos</option>
-                                                    <option value="2">Rapidas</option>
-                                                    <option value="3">Botaniux</option>
-                                                    <option value="3">niños</option>
+                                                    <option value="Favoritos">Favoritos</option>
+                                                    <option value="Rapidas">Rapidas</option>
+                                                    <option value="Botaniux">Botaniux</option>
+                                                    <option value="niños">niños</option>
                                                 </select>
                                             </div>
-
-
-                                            <button type="submit" class="btn btn-primary"><span
-                                                    class="glyphicon glyphicon-search"
-                                                    aria-hidden="true"></span>buscar</button>
                                         </form>
                                     </div>
                                 </div>
@@ -419,19 +414,19 @@
 
     <div class="modal fade" id="detalle" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" >
             <div class="modal-header">
                 <h5 class="modal-title">Crear Recetas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form class="col-10 center-block">
+            <div class="modal-body" >
+                <form class="col-10 center-block " id="detalle2">
                     <div class="form-row">
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group  justify-content-center" >
+                                <div class="form-group  justify-content-center was-validated" >
                                     <label for="inputEmail4" >Nombre de la receta</label>
                                     <input type="text" class="form-control" id="Nuevonombre"   required
                                     pattern="[a-zA-Z\s]+" >
@@ -440,10 +435,10 @@
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Categoría 1</label>
+                                        <label class="input-group-text" for="inputGroupSelect01" >Categoría 1</label>
                                     </div>
-                                    <select class="custom-select" id="cat1">
-                                        <option selected value="0">Seleccionar...</option>
+                                    <select class="custom-select" id="cat1" required>
+                                        <option selected value="">Seleccionar...</option>
                                         <option value="Mexicana">Mexicana</option>
                                         <option value="Italiana">Italiana</option>
                                         <option value="Francesa">Francesa</option>
@@ -459,8 +454,8 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">Utensilio 1</label>
                                     </div>
-                                    <select class="custom-select" id="ut1">
-                                        <option selected value="0">Seleccionar...</option>
+                                    <select class="custom-select" id="ut1" required>
+                                        <option selected value="">Seleccionar...</option>
                                         <option value="Licuadora">Licuadora</option>
                                         <option value="Estufa">Estufa</option>
                                         <option value="Batidora">Batidora</option>
@@ -505,8 +500,8 @@
                                                 
                                     <label for="floatingTextarea2">Ingrediente</label>
                                     <div id="Ingrdagr">
-                                        <select class="form-control" id='select-ingredientes1'>
-                                            <option selected value="0">Elegir</option>
+                                        <select class="form-control" id='select-ingredientes1' required>
+                                            <option selected value="">Elegir</option>
                                         </select>
                                     </div>
                                 </div>
@@ -515,7 +510,7 @@
                                 <div class="form-floating">
                                     <label for="floatingTextarea2">Cantidad</label>
                                     <input type="text" class="form-control" id="select-cantidad1" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
+                                    autofocus>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -533,8 +528,7 @@
                             <div class="col-6">
                                 <div class="form-floating">
                                     <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad2" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
+                                    <input type="text" class="form-control" id="select-cantidad2" autofocus>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -552,8 +546,7 @@
                             <div class="col-6">
                                 <div class="form-floating">
                                     <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad3" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
+                                    <input type="text" class="form-control" id="select-cantidad3" autofocus>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -571,8 +564,7 @@
                             <div class="col-6">
                                 <div class="form-floating">
                                     <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad4" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
+                                    <input type="text" class="form-control" id="select-cantidad4" autofocus>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -590,23 +582,22 @@
                             <div class="col-6">
                                 <div class="form-floating">
                                     <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad5" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
+                                    <input type="text" class="form-control" id="select-cantidad5" autofocus>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     <label for="Proc">Procedimiento</label>
-                                    <textarea class="form-control" placeholder="Escribe aquí tu procedimiento" id="Proc" style="height: 100px"></textarea>
+                                    <textarea class="form-control" placeholder="Escribe aquí tu procedimiento" id="Proc" style="height: 100px" required></textarea>
                                 </div>
                             </div>
                             <div class="col-12" style="margin-top:0.3cm;">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Etiqueta 1</label>
+                                        <label class="input-group-text" for="inputGroupSelect01" >Etiqueta 1</label>
                                     </div>
-                                    <select class="form-control" id='select-etiqueta1'>
-                                        <option value="0" selected>Seleccionar...</option>
+                                    <select class="form-control" id='select-etiqueta1' required>
+                                        <option value="" selected>Seleccionar...</option>
                                         <option value="Favoritos">Favoritos</option>
                                         <option value="Rapidas">Rapidas</option>
                                         <option value="Botaniux">Botaniux</option>
@@ -641,11 +632,33 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary " id="guardcrear" data-dismiss="modal">Guardar</button>
+                    <button type="button" class="btn btn-primary " id="guardcrear" data-dismiss="modal" disabled= "true">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="borrarmodal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar receta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="columns6" id="eliniarrec"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="botonacepeliminar"class="btn btn-primary" data-dismiss="modal">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav aria-label="Page" style="margin-left:1cm; margin-top: 0.5cm;">
         <ul class="pagination">
             

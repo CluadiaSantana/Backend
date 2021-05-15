@@ -29,7 +29,7 @@ entrar.addEventListener("click", async function(e){
         sessionStorage.us=token[0];
         sessionStorage.email=token[2];
         //llevar a la de inicio
-        window.location.href="Index.html";
+        window.location.href="Recetas.html";
     }else{
         alert('Usuario o contraseña incorrectos');
     }

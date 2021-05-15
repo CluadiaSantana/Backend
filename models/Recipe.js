@@ -1,4 +1,5 @@
 const mongoose= require ('../conexion');
+const { find } = require('./User');
 
 let recipeSchema = mongoose.Schema({
     nombre: {
@@ -55,8 +56,9 @@ recipeSchema.statics.getRecipe= async (filtro,sk)=>{
                     .find(filtro,{'ingredientes._id':0})
                     .skip(parseInt(sk,10))
                     .limit(6);
-    // console.log(docs);
-    let max= await Recipe.count();
+    //console.log(docs);
+    let max= await Recipe.find(filtro).count();
+    console.log(max);
     re.push(max);
     re.push(docs)
     //console.log(max);

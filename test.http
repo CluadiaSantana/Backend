@@ -7,13 +7,14 @@ Content-Type: application/json
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
 
 {
-    "nombre": "Arroz con leche ",
+    "nombre": "Preuba kass ",
     "ingredientes":[{"nombre":"Arroz", "cantidad": "500gr"},{"nombre":"Canela", "cantidad": "12pz"},{"nombre":"Leche", "cantidad": "1lt"}],
     "receta": " Calienta el agua con la canela y cuando suelte el hervor, agrega el arroz Cocina",
-    "categoria":["facil","cena"],
+    "categoria":"cena",
     "utencilios":["estufa","plato"],
     "correo":"ca@test.com",
-    "imagen":"https://www.seekpng.com/png/full/524-5248604_comida-icono-png-iconos-de-comida-png.png"
+    "etiquetas":"Facil",
+    "url":"https://www.seekpng.com/png/full/524-5248604_comida-icono-png-iconos-de-comida-png.png"
 }
 
 ###

@@ -14,15 +14,27 @@ let edi=document.querySelector('#Editt');
 let actualizar=document.querySelector('#Actualizar');
 //boton crear nueva receta
 let guardarrecer=document.querySelector('#guardcrear');
-
+//saber si existe un filtro para el paginado
+let filtro;
+//hacer el paginado , los botones no funcionan y poner la variable filtro en la funcion buscar y en la funcion de load
 let ingred;
+let eliminar=document.querySelector('#botonacepeliminar');
+
+let det=document.querySelector('#detalle2');
+
 async function listing_ingredients() {
-    ingred = await fetch(`http://127.0.0.1:3000/api/ingredientes`, {
+    resp = await fetch(`http://127.0.0.1:3000/api/ingredientes`, {
       method: "GET",
       headers: {
         "x-auth": sessionStorage.token,
       },
-    }).then((res) => res.json());
+    });
+    if(resp.status==200){
+        //log('cargo datos')
+        ingred= await resp.json();
+    }else{
+        alert('Ha ocurrido un error');
+    }
   }
 
  function insert_ingredients(id) {
@@ -41,12 +53,13 @@ async function listing_ingredients() {
   } 
   
   async function listing_utensilios(id) {
-    let utensilio = await fetch(`http://127.0.0.1:3000/api/Utensilio`, {
+    let res = await fetch(`http://127.0.0.1:3000/api/Utensilio`, {
       method: "GET",
       headers: {
         "x-auth": sessionStorage.token,
       },
-    }).then((res) => res.json());
+    })
+    let utensilio= await res.json();
     let select = document.getElementById(id);
     for (let i = 0; i < utensilio.length; i++) {
       let option = document.createElement("option");
@@ -59,12 +72,15 @@ async function listing_ingredients() {
       select.appendChild(option.firstChild);
     }
   }
-  
   async function buscar(e) {
     e.preventDefault();
+    
+    let string = "&";
+    let nombre=document.getElementById('nombrebuscar').value;
+    if (nombre!="") string += `nombre=${nombre}`
     let ingrediente = document.getElementById("select-ingredientes").value;
-    let string = "";
-    if (ingrediente ) string = `ingredientes=${ingrediente}`
+    if (ingrediente ) string += `ingredientes=${ingrediente}`
+    //log("aqui estoy");
   
     let utensilio = document.getElementById("select-utensilio").value;
     if(utensilio){
@@ -72,44 +88,32 @@ async function listing_ingredients() {
         string += `&utencilios=${utensilio}`
       }
       else
-        string=`utencilios=${utensilio}`
+        string+=`utencilios=${utensilio}`
         
     }
   
     let categoria = document.getElementById("select-categorias").value;
-    if(categoria){
+    if(categoria!=0){
       if(string.length>1){
         string += `&categoria=${categoria}`
       }
       else
-        string=`categoria=${categoria}`
+        string+=`categoria=${categoria}`
         
     }
   
     let etiqueta = document.getElementById("select-etiqueta").value;
-    if(etiqueta){
+    if(etiqueta!=0){
       if(string.length>1){
         string += `&etiquetas=${etiqueta}`
       }
       else
-        string=`etiquetas=${etiqueta}`    
+        string+=`etiquetas=${etiqueta}`    
     }
-  
-  
-    
-  
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-    };
-    fetch(
-      `http://127.0.0.1:3000/api/Recipe?${string}`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => recetasListToHTML(result[0]));
+    log(`esto envia${string}`);
+    filtro=string;
+    numeropag=0;
+    await paginado(0);
   }
   document.getElementById("buscar").addEventListener("click", buscar);
 
@@ -135,19 +139,27 @@ window.onload = async function () {
         document.getElementById("login").innerText="login";
     }
 };
+
 document.getElementById("login").addEventListener("click", function () {
     sessionStorage.token = null;
     sessionStorage.us=null;
+    sessionStorage.email=null;
   });
 
-async function load(pg){
-    if(pg==undefined){
-        sk=0;
+async function load(){
+    log(`pagina de load ${numeropag}`);
+    if(numeropag==undefined){
+        numeropag=0;
     }else{
-        sk=pg*6
+        sk=numeropag*6
     }
+    // log(`busqueda ${string}`);
+    if(filtro=="&"){
+        filtro="";
+    }
+    // log(`busqueda despues ${string}`);
     //pedir los datos con fetch
-    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe?sk=${sk}`,{
+    let resp= await fetch(`http://127.0.0.1:3000/api/Recipe?sk=${sk}${filtro}`,{
         method: 'GET',
         headers:{
             'x-auth': sessionStorage.token
@@ -162,7 +174,6 @@ async function load(pg){
         log(`numero de recetas ${np}`);
         agregarboton();
         //poner botones de busqueda necesarios
-
     }else{
         alert('Ha ocurrido un error');
     }
@@ -197,7 +208,7 @@ function recipeToHtml(recipe){
         <div class="btn-group" role="group" aria-label="Basic example">
             <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
             <a onclick="editarrect('${recipe._id}')" class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-            <a onclick="borrarreceta('${recipe._id}')"class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+            <a onclick="confirmacionborrar('${recipe._id}')" class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#borrarmodal"  ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
     </tr>
@@ -340,19 +351,27 @@ async function editarrect(id){
     edi.querySelector('#editurl').value=recetaactual[0].url;
 }
 
-async function borrarreceta(id){
+async function confirmacionborrar(id){
+    await actual(id);
+    document.querySelector('#eliniarrec').innerText=`Eliminar: ${recetaactual[0].nombre}`
+}
+
+eliminar.addEventListener("click", async function(e){
+    e.preventDefault();
+    id=recetaactual[0]._id
     let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${id}`,{
         method: 'DELETE',
         headers:{
             'x-auth': sessionStorage.token}
     });
-    console.log(resp.status);
+    log(`estatus es ${resp.status}`);
     if(resp.status==200){
-        log('Receta');
+        log(`pagina enviada ${numeropag}`);
+        paginado(numeropag);
     }else{
         alert('Ha ocurrido un error');
     }
-}
+});
 
 actualizar.addEventListener("click", async function(e){
     e.preventDefault();
@@ -385,6 +404,18 @@ actualizar.addEventListener("click", async function(e){
     }
 })
 
+det.addEventListener("change", function (e) {
+    //checar si todos los registros son validos
+    log("cambio")
+    if (det.querySelectorAll('* :invalid').length==0){
+        log('son validos')
+        guardarrecer.removeAttribute('disabled');
+    }else{
+        if(!guardarrecer.hasAttribute('disabled')){
+            guardarrecer.setAttribute('disabled','true');
+        }
+    }
+})
 
 guardarrecer.addEventListener("click", async function(e){
     e.preventDefault();
@@ -418,6 +449,10 @@ guardarrecer.addEventListener("click", async function(e){
     console.log(inc);
     console.log(ute);
     let u=document.querySelector('#urlcrear').value;
+    log(`la url ${u}`);
+    if (!u){
+        u="https://www.seekpng.com/png/full/524-5248604_comida-icono-png-iconos-de-comida-png.png"
+    }
     let f={
         "nombre": document.querySelector('#Nuevonombre').value,
         "ingredientes":inc,
@@ -442,7 +477,9 @@ guardarrecer.addEventListener("click", async function(e){
     if(resp.status==201){
         alert('Se ha creado nueva receta')
         log('Receta');
-        window.location.href="Recetas.html";
+        paginado(numeropag);
+        det.reset();
+        guardarrecer.setAttribute('disabled','true');
     }else{
         alert('Ha ocurrido un error');
     }
@@ -457,7 +494,7 @@ function agregarboton(){
     log(`numero de paginas ${paginas}`);
     for(let i=1;i<paginas+1;i++){
         agregar+=`<li><button class="btn btn-outline-dark botonpag" onclick="paginado('${i-1}')" id='bot${i-1}' >${i}</button></li>`
-        log(agregar);
+        //log(agregar);
     }
     agregar+=`<li ><button class="btn btn-outline-dark botonpag" onclick="paginado('n')" id="next">Next</button></li>`
     document.querySelector('.pagination').insertAdjacentHTML("beforeend",agregar);
@@ -465,8 +502,8 @@ function agregarboton(){
 
 //hace la division de los usuarios en paginas
 async function  paginado(pag){
-    
     //si es next o previus el boton hace los calculos
+    log(`pagina entregada ${numeropag}`);
     if(pag=='n'){
         numeropag++;
         pag=numeropag;
@@ -476,9 +513,8 @@ async function  paginado(pag){
     }else{
         numeropag=pag;
     }
-    
     log(numeropag)
-    await load(numeropag)
+    await load();
     document.querySelectorAll('.botonpag').forEach(e=>{ e.removeAttribute('disabled') })
     //deshabilita los botones necesarios
     if(numeropag==0){

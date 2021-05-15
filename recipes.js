@@ -157,7 +157,7 @@ router.delete('/:id', async (req,res)=>{
         }
     } 
     if(!receta[0]){
-        res.status(404).send({error: "Receta no encontrada"});
+        res.status(404).send({alert: "Receta no encontrada"});
         return
     }else{
         await Recipe.deleteRecipe(req.params.id);
