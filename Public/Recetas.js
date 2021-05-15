@@ -18,6 +18,7 @@ let guardarrecer=document.querySelector('#guardcrear');
 let filtro;
 //hacer el paginado , los botones no funcionan y poner la variable filtro en la funcion buscar y en la funcion de load
 let ingred;
+let utens;
 let eliminar=document.querySelector('#botonacepeliminar');
 
 let det=document.querySelector('#detalle2');
@@ -59,19 +60,29 @@ async function listing_ingredients() {
         "x-auth": sessionStorage.token,
       },
     })
-    let utensilio= await res.json();
+    if(resp.status==200){
+        //log('cargo datos')
+        utens= await res.json();
+    }else{
+        alert('Ha ocurrido un error');
+    }
+  }
+
+  function insert_utenss(id) {
     let select = document.getElementById(id);
-    for (let i = 0; i < utensilio.length; i++) {
+    for (let i = 0; i < utens.length ; i++) {
       let option = document.createElement("option");
       option.innerHTML =
         "<option value='" +
-        utensilio[i].nombre +
+        utens[i].nombre+
         "'>" +
-        utensilio[i].nombre +
+        utens[i].nombre+
         " </option> ";
+      
       select.appendChild(option.firstChild);
     }
-  }
+  } 
+
   async function buscar(e) {
     e.preventDefault();
     
@@ -119,23 +130,28 @@ async function listing_ingredients() {
 
 window.onload = async function () {
     await listing_ingredients();
-    listing_utensilios("select-utensilio");
+    await listing_utensilios();
+    insert_utenss("select-utensilio");
+    insert_utenss("ut1");
+    insert_utenss("ut2");
+    insert_utenss("ut3");
     insert_ingredients("select-ingredientes");
     insert_ingredients("select-ingredientes1");
     insert_ingredients("select-ingredientes2");
     insert_ingredients("select-ingredientes3");
     insert_ingredients("select-ingredientes4");
     insert_ingredients("select-ingredientes5");
+
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
       document.getElementById("crear").classList.add("oculto");
     }else{
         document.getElementById("crear").classList.remove("oculto");
     }
-    if (sessionStorage.token) {
-        //document.getElementById("linkreg").classList.add("oculto");
+    if (sessionStorage.token!=null) {
+        document.getElementById("Linkreg").classList.add("oculto");
         document.getElementById("login").innerText="logout";
     }else{
-        document.getElementById("linkreg").classList.remove("oculto");
+        document.getElementById("Linkreg").classList.remove("oculto");
         document.getElementById("login").innerText="login";
     }
 };
@@ -144,6 +160,7 @@ document.getElementById("login").addEventListener("click", function () {
     sessionStorage.token = null;
     sessionStorage.us=null;
     sessionStorage.email=null;
+    //window.location.href="Login.html";
   });
 
 async function load(){
@@ -386,7 +403,7 @@ actualizar.addEventListener("click", async function(e){
         "correo":recetaactual[0].correo
     }
     let imp=JSON.stringify(f);
-    console.log(imp);
+    //console.log(imp);
     let resp= await fetch(`http://127.0.0.1:3000/api/Recipe/${recetaactual[0]._id}`,{
         method: 'PUT',
         headers:{
@@ -394,7 +411,7 @@ actualizar.addEventListener("click", async function(e){
             'Content-Type': 'application/json'},
         body: imp
     });
-    console.log(resp.status);
+    //console.log(resp.status);
     if(resp.status==200){
         paginado(0);
         alert('El usuario se ha Actualizado')

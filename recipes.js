@@ -19,6 +19,7 @@ function authPer(token) {
     let reg=[];
     reg.push(decoded.rol);
     reg.push(decoded.email);
+    console.log(`reg 0 es ${reg[0]}`);
     return reg;
   }
 
@@ -128,9 +129,8 @@ router.put('/:id', async (req,res)=>{
     console.log(us);
     let receta = await Recipe.getRecipe({_id : req.params.id});
     if(us[0]!="admin"){
-        let e=receta[0].correo.includes(us[1]);
-        if(!e){
-            console.log(receta[0].correo.includes(us[1]));
+        if(receta[1][0].correo.includes(us[1])){
+            //console.log(receta[0].correo.includes(us[1]));
             res.status(401).send({error: "Usuario no autorizado"})
             return
         } 
