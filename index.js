@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(log, test);
-app.use(express.static(__dirname + "/Public/index"));
+app.use(express.static(__dirname + "/Public/search"));
 app.use("/api/User", users);
 app.use("/api/Recipe", recipes);
 
