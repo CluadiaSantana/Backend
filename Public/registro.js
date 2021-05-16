@@ -28,8 +28,7 @@ function registro(e) {
   fetch("https://recetariodasw.herokuapp.com/api/User", requestOptions).then((response) => {
       console.log(response);
       if ((response.status == 200))
-        return (window.location.href = "/Public/index.html");
-      window.location.href = "/Public/Registro.html";
+        return (window.location.href = "/Public");
     })
     .then((result) => console.log(result));
 
