@@ -1,4 +1,4 @@
-sessionStorage.host="https://recetariodasw.herokuapp.com"; // `http://localhost:3000`;//
+sessionStorage.host = "https://recetariodasw.herokuapp.com"; // `http://localhost:3000`;//
 async function listing_ingredients() {
   let ingred = await fetch(`${sessionStorage.host}/api/ingredientes`, {
     method: "GET",
@@ -86,17 +86,16 @@ document.getElementById("buscar").addEventListener("click", buscar);
 
 window.onload = function () {
   console.log(sessionStorage.token);
-  // if (sessionStorage.token) {
-  //   document.getElementById("Linkreg").classList.add("oculto");
-
-  //   document.getElementById("login").innerText = "logout";
-  // } else {
-  //   document.getElementById("Linkreg").classList.remove("oculto");
-
-  //   document.getElementById("login").innerText = "login";
-  // }
+  if (sessionStorage.token != "null") {
+    document.getElementById("Linkreg").classList.add("oculto");
+    document.getElementById("login").innerText = "logout";
+  } else {
+    document.getElementById("Linkreg").classList.remove("oculto");
+    document.getElementById("login").innerText = "login";
+  }
   document.getElementById("login").addEventListener("click", function () {
     sessionStorage.token = null;
     sessionStorage.us = null;
+    sessionStorage.email = null;
   });
 };
