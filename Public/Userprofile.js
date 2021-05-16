@@ -79,7 +79,7 @@ function mostrarEditar(email) {
     },
   };
 
-  fetch(`http://localhost:3000/api/User/${email}`, requestOptions)
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return "error";
       return response.json();
@@ -103,7 +103,7 @@ function mostrarEliminar(email) {
     },
   };
 
-  fetch(`http://localhost:3000/api/User/${email}`, requestOptions)
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return "error";
       return response.json();
@@ -138,7 +138,7 @@ function editar() {
     body: raw,
   };
 
-  fetch(`http://localhost:3000/api/User/${emailEdit}`, requestOptions).then(
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${emailEdit}`, requestOptions).then(
     (response) => {
       window.location.reload();
     }
@@ -161,7 +161,7 @@ function cambiarPassword() {
     body: raw,
   };
 
-  fetch(`http://localhost:3000/api/User/${emailEdit}`, requestOptions).then(
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${emailEdit}`, requestOptions).then(
     (response) => {
       window.location.reload();
     }
@@ -177,7 +177,7 @@ function eliminar() {
     },
   };
 
-  fetch(`http://localhost:3000/api/User/${emailEdit}`, requestOptions).then(
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${emailEdit}`, requestOptions).then(
     (response) => {
       window.location.reload();
     }
@@ -197,7 +197,7 @@ function cargarUsuarios() {
     redirect: "follow",
   };
 
-  fetch(`http://localhost:3000/api/User/${email}`, requestOptions)
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return err;
       return response.json();
@@ -208,7 +208,7 @@ function cargarUsuarios() {
       else usuariosToHTML(result);
     });
 }
-
+//jeje comentario para commit saludos
 document.getElementById("editGuardar").addEventListener("click", editar);
 document
   .getElementById("eliminarConfirmar")
