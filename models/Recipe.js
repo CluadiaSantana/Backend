@@ -1,5 +1,4 @@
 const mongoose= require ('../conexion');
-const { find } = require('./User');
 
 let recipeSchema = mongoose.Schema({
     nombre: {
