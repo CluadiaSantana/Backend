@@ -15,7 +15,7 @@ entrar.addEventListener("click", async function(e){
     }
     let imp=JSON.stringify(f);
     console.log(imp);
-    let resp= await fetch("http://127.0.0.1:3000/api/User/Login",{
+    let resp= await fetch("https://recetariodasw.herokuapp.com/api/User/Login",{
         method: 'POST',
         headers:{'Content-Type': 'application/json'},
        // mode: 'no-cors',

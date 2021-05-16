@@ -82,7 +82,7 @@ function mostrarEditar(email) {
     headers: myHeaders,
   };
 
-  fetch(`http://localhost:3000/api/User/${email}`, requestOptions)
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return "error";
       return response.json();
@@ -109,7 +109,7 @@ function mostrarEliminar(email) {
     headers: myHeaders,
   };
 
-  fetch(`http://localhost:3000/api/User/${email}`, requestOptions)
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return "error";
       return response.json();
@@ -148,7 +148,7 @@ function editar() {
     body: raw,
   };
 
-  fetch(`http://localhost:3000/api/User/${emailEdit}`, requestOptions).then(
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${emailEdit}`, requestOptions).then(
     (response) => {
       window.location.reload();
     }
@@ -175,7 +175,7 @@ function cambiarPassword() {
     body: raw,
   };
 
-  fetch(`http://localhost:3000/api/User/${emailEdit}`, requestOptions).then(
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${emailEdit}`, requestOptions).then(
     (response) => {
       window.location.reload();
     }
@@ -195,7 +195,7 @@ function eliminar() {
     headers: myHeaders,
   };
 
-  fetch(`http://localhost:3000/api/User/${emailEdit}`, requestOptions).then(
+  fetch(`https://recetariodasw.herokuapp.com/api/User/${emailEdit}`, requestOptions).then(
     (response) => {
       window.location.reload();
     }
@@ -203,6 +203,10 @@ function eliminar() {
 }
 
 function cargarUsuarios() {
+  let email="";
+  if(sessionStorage.us!="admin"){
+    email=sessionStorage.email
+  }
   var myHeaders = new Headers();
   myHeaders.append(
     "x-auth",
@@ -215,7 +219,7 @@ function cargarUsuarios() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/api/User", requestOptions)
+  fetch(`https://recetariodasw.herokuapp.com/api/User${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return err;
       return response.json();

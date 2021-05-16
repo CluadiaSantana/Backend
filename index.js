@@ -41,9 +41,9 @@ app.get("/api/Tag" , async (req, res) => {
   res.send(lista);
 });
 
-app.get("/", (req, res) => {
-  res.send("hola");
-});
+// app.get("/", (req, res) => {
+//   res.send("HolA");
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
