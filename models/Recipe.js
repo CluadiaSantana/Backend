@@ -57,7 +57,7 @@ recipeSchema.statics.getRecipe= async (filtro,sk)=>{
                     .limit(6);
     //console.log(docs);
     let max= await Recipe.find(filtro).count();
-    console.log(max);
+    //console.log(docs);
     re.push(max);
     re.push(docs)
     //console.log(max);
@@ -105,9 +105,9 @@ let Recipe= mongoose.model('recipe',recipeSchema);
 //     }
 // )
 
-// Recipe.getRecipe({_id:"608efbffe2f92453f4c83529"})
+//Recipe.getRecipe({correo:"ca@test.com"},0)
 
-// Recipe.deleteRecipe({_id:"608efbffe2f92453f4c83529"})
+//Recipe.deleteRecipe({_id:"609be73b993491b1bc1b2a8c"})
 
 // Recipe.getRecipe({_id:"608efbffe2f92453f4c83529"})
 

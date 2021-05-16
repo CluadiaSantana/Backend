@@ -564,4 +564,13 @@ async function actingredientes(){
     insert_ingredients("select-ingredientes4");
     insert_ingredients("select-ingredientes5");
 }
+document.querySelector("#misrecetas").addEventListener("click", async function(e){
+    e.preventDefault();
+    let str=`&correo=${sessionStorage.email}`
+    numeropag=0;
+    filtro=str;
+    log(filtro)
+    await paginado(0);
+});
+
 paginado(0);

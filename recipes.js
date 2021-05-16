@@ -31,6 +31,21 @@ router.get('/', async(req,res)=>{
     console.log(ingredientes);
     if(nombre)
         filtro.nombre = new RegExp(nombre,'i')
+    if(correo){
+        let token = req.headers["x-auth"];
+        let us=authPer(token);
+        console.log(us);
+        if(us[1].toUpperCase()!=correo.toUpperCase() & us[0]!="admin"){
+            res.status(401).send({error: "Usuario no autorizado"})
+            return
+        } 
+        filtro.correo = new RegExp(correo,'i')
+        // if(us[0]!="admin"){
+        //     
+        // }else{
+        //     filtro.correo = new RegExp(correo,'i');
+        // }
+        }
     if(ingredientes){
         and.push({'ingredientes.nombre': new RegExp(ingredientes,'i')});
         // ingredientes.map(inge=>{
@@ -58,20 +73,7 @@ router.get('/', async(req,res)=>{
         console.log(and);
         filtro.$and=and;
     }
-    if(correo){
-        let token = req.headers["x-auth"];
-        let us=authPer(token);
-        console.log(us);
-        if(us[0]!="admin"){
-            if(us[1]!=correo){
-                res.status(401).send({error: "Usuario no autorizado"})
-            return
-            } 
-        }else{
-            filtro.correo = correo;
-        }
-    }
-    //console.log(filtro);
+    
     let lista= await Recipe.getRecipe(filtro,sk);
     if(lista[1]){
         res.status(200).send(lista);
@@ -122,6 +124,9 @@ router.get('/:id', async(req,res)=>{
         res.status(404).send({error: "No se encontro ninguna receta"})
     }
 })
+
+
+
 
 router.put('/:id', async (req,res)=>{
     let token = req.headers["x-auth"];

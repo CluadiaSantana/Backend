@@ -73,8 +73,8 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 
 ###
 //get si encuentra
-GET {{host}}/api/Recipe
-Content-Type: application/json
+GET http://localhost:3000/api/Recipe?sk=0&correo=Ca@test.com
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QuY29tIiwibm9tYnJlIjoiQXJ0dXJvbyBDb3JvbmEiLCJyb2wiOiJjaGVmIiwiaWF0IjoxNjIxMTYwNzYzfQ.504zOrZwgqQlLLI55MMvz3Je6US_csSMWfEszX4hgiI
 
 
 
@@ -165,7 +165,7 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNhQHRlc3QiLCJub21icmU
 }
 
 ###
-GET {{host}}/api/Recipe/608f4f103803b362743b00c2
+GET http://localhost:3000/api/Recipe/608f4f103803b362743b00c2
 x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFAdGVzdCIsIm5vbWJyZSI6IkFsZWphbmRyYSBHb256YWxleiIsInJvbCI6InJlZ3VsYXIiLCJpYXQiOjE2MTk5OTk1ODR9.z91PTY2zUzRr0Nct5xGh_C41HTP-onst7rufR5OtPc4
 
 ###
