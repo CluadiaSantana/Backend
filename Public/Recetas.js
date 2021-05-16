@@ -154,10 +154,10 @@ window.onload = async function () {
         document.getElementById("Linkreg").classList.remove("oculto");
         document.getElementById("login").innerText="login";
     }
-    document.getElementById("login").addEventListener("click", function () {
-        sessionStorage.token = null;
-        sessionStorage.us = null;
-      });
+    // document.getElementById("login").addEventListener("click", function () {
+    //     sessionStorage.token = null;
+    //     sessionStorage.us = null;
+    //   });
 };
 
 document.getElementById("login").addEventListener("click", function () {
