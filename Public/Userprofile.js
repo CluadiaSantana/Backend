@@ -71,15 +71,12 @@ function usuariosToHTML(usuarios) {
 
 function mostrarEditar(email) {
   emailEdit = email;
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "x-auth",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibm9tYnJlIjoidGFjbyB0YWMiLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYyMTAzMTY3M30.8SLsBPBOkBxTiXPHS6j_G4-lHaRHtwS1m881phh-ILM"
-  );
 
   var requestOptions = {
     method: "GET",
-    headers: myHeaders,
+    headers: {
+      "x-auth": sessionStorage.token,
+    },
   };
 
   fetch(`https://recetariodasw.herokuapp.com/api/User/${email}`, requestOptions)
@@ -98,15 +95,12 @@ function mostrarEditar(email) {
 
 function mostrarEliminar(email) {
   emailEdit = email;
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "x-auth",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibm9tYnJlIjoidGFjbyB0YWMiLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYyMTAzMTY3M30.8SLsBPBOkBxTiXPHS6j_G4-lHaRHtwS1m881phh-ILM"
-  );
 
   var requestOptions = {
     method: "GET",
-    headers: myHeaders,
+    headers: {
+      "x-auth": sessionStorage.token,
+    },
   };
 
   fetch(`https://recetariodasw.herokuapp.com/api/User/${email}`, requestOptions)
@@ -126,13 +120,6 @@ function mostrarPassword(email) {
 }
 
 function editar() {
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "x-auth",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibm9tYnJlIjoidGFjbyB0YWMiLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYyMTAzMTY3M30.8SLsBPBOkBxTiXPHS6j_G4-lHaRHtwS1m881phh-ILM"
-  );
-  myHeaders.append("Content-Type", "application/json");
-
   let update = {
     nombre: `${document.getElementById("editNombre").value} ${
       document.getElementById("editApellidos").value
@@ -144,7 +131,10 @@ function editar() {
 
   var requestOptions = {
     method: "PUT",
-    headers: myHeaders,
+    headers: {
+      "x-auth": sessionStorage.token,
+      "Content-Type": "application/json",
+    },
     body: raw,
   };
 
@@ -156,13 +146,6 @@ function editar() {
 }
 
 function cambiarPassword() {
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "x-auth",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibm9tYnJlIjoidGFjbyB0YWMiLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYyMTAzMTY3M30.8SLsBPBOkBxTiXPHS6j_G4-lHaRHtwS1m881phh-ILM"
-  );
-  myHeaders.append("Content-Type", "application/json");
-
   let update = {
     password: `${document.getElementById("pwd1").value}`,
   };
@@ -171,7 +154,10 @@ function cambiarPassword() {
 
   var requestOptions = {
     method: "PUT",
-    headers: myHeaders,
+    headers: {
+      "x-auth": sessionStorage.token,
+      "Content-Type": "application/json",
+    },
     body: raw,
   };
 
@@ -183,16 +169,12 @@ function cambiarPassword() {
 }
 
 function eliminar() {
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "x-auth",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibm9tYnJlIjoidGFjbyB0YWMiLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYyMTAzMTY3M30.8SLsBPBOkBxTiXPHS6j_G4-lHaRHtwS1m881phh-ILM"
-  );
-  myHeaders.append("Content-Type", "application/json");
-
   var requestOptions = {
     method: "DELETE",
-    headers: myHeaders,
+    headers: {
+      "x-auth": sessionStorage.token,
+      "Content-Type": "application/json",
+    },
   };
 
   fetch(`https://recetariodasw.herokuapp.com/api/User/${emailEdit}`, requestOptions).then(
@@ -203,29 +185,27 @@ function eliminar() {
 }
 
 function cargarUsuarios() {
-  let email="";
-  if(sessionStorage.us!="admin"){
-    email=sessionStorage.email
-  }
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "x-auth",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibm9tYnJlIjoidGFjbyB0YWMiLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYyMTAzMTY3M30.8SLsBPBOkBxTiXPHS6j_G4-lHaRHtwS1m881phh-ILM"
-  );
+  let email = "";
+  let arrayU = [];
+  if (sessionStorage.us != "admin") email = sessionStorage.email;
 
   var requestOptions = {
     method: "GET",
-    headers: myHeaders,
+    headers: {
+      "x-auth": sessionStorage.token,
+    },
     redirect: "follow",
   };
 
-  fetch(`https://recetariodasw.herokuapp.com/api/User${email}`, requestOptions)
+  fetch(`http://localhost:3000/api/User/${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return err;
       return response.json();
     })
     .then((result) => {
-      usuariosToHTML(result);
+      arrayU.push(result);
+      if (sessionStorage.us != "admin") usuariosToHTML(arrayU);
+      else usuariosToHTML(result);
     });
 }
 
@@ -238,4 +218,11 @@ document
   .getElementById("confirmarPass")
   .addEventListener("click", cambiarPassword);
 
-window.onload = cargarUsuarios;
+window.onload = function () {
+  cargarUsuarios();
+  if (sessionStorage.us != "admin") {
+    document.getElementById("selectRol").classList.add("oculto");
+  } else {
+    document.getElementById("selectRol").classList.remove("oculto");
+  }
+};
