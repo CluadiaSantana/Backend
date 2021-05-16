@@ -208,7 +208,7 @@ function cargarUsuarios() {
       else usuariosToHTML(result);
     });
 }
-
+//jeje comentario para commit saludos
 document.getElementById("editGuardar").addEventListener("click", editar);
 document
   .getElementById("eliminarConfirmar")
