@@ -18,6 +18,18 @@ x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI
 }
 
 ###
+//post correcto
+POST  {{host}}/api/Ingrediente
+Content-Type: application/json
+x-auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNAdGVzdCIsIm5vbWJyZSI6IkNsYXVkaWEgU2FudGFuYSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNjE5OTk5MjY3fQ.XTcde8YN2_pAdUr2EDgo3tC1Pk-cp_ye4qZNNI3qpLY
+
+{
+    "nombre": "ingrediente",
+    "medida": "medida"
+}
+
+
+###
 //post con algun dato faltante
 POST  {{host}}/api/Recipe
 Content-Type: application/json

@@ -18,127 +18,57 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
         integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
-        /* body {
-            background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-        } */
-
-        .emp-profile {
-            padding: 3%;
-            margin-top: 3%;
-            margin-bottom: 3%;
-            border-radius: 0.5rem;
-            background: -webkit-linear-gradient(left, lightgrey, gray);
-        }
-
-        .profile-img {
-            text-align: center;
-        }
-
-        .profile-img img {
-            width: 70%;
-            height: 100%;
-        }
-
-        .profile-img .file {
-            position: relative;
-            overflow: hidden;
-            margin-top: -20%;
-            width: 70%;
-            border: none;
-            border-radius: 0;
-            font-size: 15px;
-            background: #212529b8;
-        }
-
-        .profile-img .file input {
-            position: absolute;
-            opacity: 0;
-            right: 0;
-            top: 0;
-        }
-
-        .profile-head h5 {
-            color: #333;
-        }
-
-        .profile-head h6 {
-            color: #0062cc;
-        }
-
-        .profile-edit-btn {
-            border: none;
-            border-radius: 1.5rem;
-            width: 70%;
-            padding: 2%;
-            font-weight: 600;
-            color: #6c757d;
-            cursor: pointer;
-        }
-
-        .proile-rating {
-            font-size: 12px;
-            color: #818182;
-            margin-top: 5%;
-        }
-
-        .proile-rating span {
-            color: #495057;
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .profile-head .nav-tabs {
-            margin-bottom: 5%;
-        }
-
-        .profile-head .nav-tabs .nav-link {
-            font-weight: 600;
-            border: none;
-        }
-
-        .profile-head .nav-tabs .nav-link.active {
-            border: none;
-            border-bottom: 2px solid #0062cc;
-        }
-
-        .profile-work {
-            padding: 14%;
-            margin-top: -15%;
+        .carousel-item {
+            height: 90vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
         }
         .oculto{
     display: none;
   }
 
-        .profile-work p {
-            font-size: 12px;
-            color: #818182;
-            font-weight: 600;
-            margin-top: 10%;
+        section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
         }
 
-        .profile-work a {
-            text-decoration: none;
-            color: #495057;
-            font-weight: 600;
-            font-size: 14px;
+        .lnr {
+            display: inline-block;
+            fill: currentColor;
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.05em;
+            stroke-width: 1;
         }
 
-        .profile-work ul {
-            list-style: none;
+        .services-icon {
+            margin-bottom: 20px;
+            font-size: 30px;
         }
 
-        .profile-tab label {
-            font-weight: 600;
+        bgc2,
+        .vLine,
+        .hLine {
+            background-color: #0F52BA;
         }
 
-        .profile-tab p {
-            font-weight: 600;
-            color: #0062cc;
+        .quote-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
         }
 
-        /*/////////// Desde aqui es del pie de pagina ///////*/
+        .services-icon {
+            font-size: 60px;
+            margin-left: 2rem;
+        }
+
         .context-dark,
         .bg-gray-dark,
         .bg-primary {
@@ -155,31 +85,103 @@
         .footer-classic a:active {
             color: #ffffff;
         }
+
+        .oculto {
+            display: none;
+        }
+
+        .dropdown.dropdown-lg .dropdown-menu {
+
+            margin-top: -1px;
+            padding: 6px 20px;
+        }
+
+        .input-group-btn .btn-group {
+
+            display: flex !important;
+        }
+
+        .btn-group .btn {
+
+            border-radius: 0;
+            margin-left: -1px;
+        }
+
+        .btn-group .btn:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .btn-group .form-horizontal .btn[type="submit"] {
+
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .form-horizontal .form-group {
+
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .form-group .form-control:last-child {
+
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .midrop {
+            height: calc(2.25rem + 2px) !important;
+        }
+
+        @media screen and (min-width: 768px) {
+            #adv-search {
+                width: 500px;
+                margin: 0 auto;
+            }
+
+            .dropdown.dropdown-lg {
+                position: static !important;
+            }
+
+            .dropdown.dropdown-lg .dropdown-menu {
+                min-width: 500px;
+            }
+        }
+
+        #ingredientes {
+            width: 300px;
+        }
+
+        .oculto {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
+    <h1>Ingredienterio DASW</h1>
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Recetario DASW</a>
+            <a class="navbar-brand" href="index.html">Ingredienterio DASW</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="input-group mb-0">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        buscar por
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Recetas</a>
-                        <a class="dropdown-item" href="#">Ingredientes</a>
-                        <a class="dropdown-item" href="#">Etiquetas</a>
-                        <a class="dropdown-item" href="#">Utencilios</a>
+                    <div class="input-group" id="adv-search">
+                        <input type="text" class="form-control" id="nombrebuscar" placeholder="Buscar ingrediente" />
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"
+                                        id="buscar" aria-hidden="true">buscar</span></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <input type="text" class="form-control" aria-label="Text input with dropdown button" />
+
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -188,55 +190,79 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="Userprofile.html">Usuarios</a></li>
+                        <li><a href="Userprofile.html">Usuario</a></li>
                         <li><a href="Etiquetas.html">Etiquetas</a></li>
                         <li><a href="Categorias.html">Categorias</a></li>
                         <li><a href="Utencilios.html">Utensilios</a></li>
-                        <li><a href="Recetas.html">Recetas</a></li>
+                        <li><a href="Ingredientes.html">Ingredientes</a></li>
                         <li><a href="Ingredientes.html">Ingredientes</a></li>
                     </ul>
                 </li>
-                <li class="nav-item" id="linkreg">
+                <li class="nav-item" id="Linkreg">
                     <a class="nav-link" href="Registro.html">Registro</a>
                 </li>
-                <li  class="nav-item">
-                <a id = "login" class="nav-link"  href="Login.html">Login</a>
+                <li class="nav-item">
+                    <a id="login" class="nav-link" href="Login.html">Login</a>
                 </li>
+
             </ul>
+
         </div>
         </div>
+
     </nav>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <nav class="navbar navbar-expand-lg ">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto ml-auto">
-                            <li class="nav-item">
-                                <div class="justify-content-md-center">
-                                    <form class="form-inline my-2 my-lg-0 my-lg-0">
-                                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar Etiqueta"
-                                            aria-label="Search" style="width: 600px;">
-                                        <button class="btn btn-outline-success bg-primary  my-2 my-sm-0" type="submit"
-                                            style="color:white">Search</button>
-                                    </form>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                
                 <h1>Ingredientes</h1>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Unidad de medida</th>
+                            <th>Medida</th>
+                            <th id="crear" class="">
+                                <a class="btn btn-success" data-dismiss="modal" href="" data-toggle="modal"
+                                    data-target="#detalle"><i class="far fa-fw fa-edit"></i> Crear Ingrediente</a>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody id="listaIngredientes">
- 
+                    <tbody id="listaingredientes">
+
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+    <!-- MOdal de formulario para creacion o edicion de etiquetas -->
+
+
+    <div class="modal fade" id="ver" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Nombrever"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="col-10 center-block" id="ingredientever">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <h6 id="vernom"></h6>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <h6 id="vermed"></h6>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -246,7 +272,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Editar Ingrediente</h5>
+                    <h5 class="modal-title">Editar Ingredientes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -257,8 +283,15 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group  justify-content-center was-validated">
-                                        <label for="inputEmail4">Nombre del ingrediente</label>
+                                        <label for="editnombre">Nombre del ingrediente</label>
                                         <input type="text" class="form-control" id="editnombre" value="" required
+                                            pattern="[a-zA-Z\s]+" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group  justify-content-center was-validated">
+                                        <label for="editmedida">Unidad de medida del ingrediente</label>
+                                        <input type="text" class="form-control" id="editmedida" value="" required
                                             pattern="[a-zA-Z\s]+" autofocus>
                                     </div>
                                 </div>
@@ -276,220 +309,29 @@
 
     <div class="modal fade" id="detalle" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" >
             <div class="modal-header">
-                <h5 class="modal-title">Crear Recetas</h5>
-                <button type="button" onclick="nuevaingrediente()" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">Crear Ingredientes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form class="col-10 center-block">
+            <div class="modal-body" >
+                <form class="col-10 center-block " id="detalle2">
                     <div class="form-row">
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group  justify-content-center" >
-                                    <label for="inputEmail4" >Nombre de la ingrediente</label>
+                                <div class="form-group  justify-content-center was-validated" >
+                                    <label for="Nuevonombre" >Nombre del ingrediente</label>
                                     <input type="text" class="form-control" id="Nuevonombre"   required
                                     pattern="[a-zA-Z\s]+" >
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Categoría 1</label>
-                                    </div>
-                                    <select class="custom-select" id="cat1">
-                                        <option selected value="0">Seleccionar...</option>
-                                        <option value="Mexicana">Mexicana</option>
-                                        <option value="Italiana">Italiana</option>
-                                        <option value="Francesa">Francesa</option>
-                                        <option value="China">China</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div id="utenciliosCrear">
-
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 1</label>
-                                    </div>
-                                    <select class="custom-select" id="ut1">
-                                        <option selected value="0">Seleccionar...</option>
-                                        <option value="Licuadora">Licuadora</option>
-                                        <option value="Estufa">Estufa</option>
-                                        <option value="Batidora">Batidora</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 2</label>
-                                    </div>
-                                    <select class="custom-select" id="ut2">
-                                        <option selected value="0">Seleccionar...</option>
-                                        <option value="Licuadora">Licuadora</option>
-                                        <option value="Estufa">Estufa</option>
-                                        <option value="Batidora">Batidora</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Utensilio 3</label>
-                                    </div>
-                                    <select class="custom-select" id="ut3">
-                                        <option selected value="0">Seleccionar...</option>
-                                        <option value="Licuadora">Licuadora</option>
-                                        <option value="Estufa">Estufa</option>
-                                        <option value="Batidora">Batidora</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
-                            <div id="Ing1">
-
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    
-                                                
-                                    <label for="floatingTextarea2">Ingrediente</label>
-                                    <div id="Ingrdagr">
-                                        <select class="form-control" id='select-ingredientes1'>
-                                            <option selected value="0">Elegir</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad1" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    
-                                                
-                                    <label for="floatingTextarea2">Ingrediente</label>
-                                    <div id="Ingrdagr">
-                                        <select class="form-control" id='select-ingredientes2'>
-                                            <option selected value="0">Elegir</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad2" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    
-                                                
-                                    <label for="floatingTextarea2">Ingrediente</label>
-                                    <div id="Ingrdagr">
-                                        <select class="form-control" id='select-ingredientes3'>
-                                            <option selected value="0">Elegir</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad3" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    
-                                                
-                                    <label for="floatingTextarea2">Ingrediente</label>
-                                    <div id="Ingrdagr">
-                                        <select class="form-control" id='select-ingredientes4'>
-                                            <option selected value="0">Elegir</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad4" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    
-                                                
-                                    <label for="floatingTextarea2">Ingrediente</label>
-                                    <div id="Ingrdagr">
-                                        <select class="form-control" id='select-ingredientes5'>
-                                            <option selected value="0">Elegir</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <label for="floatingTextarea2">Cantidad</label>
-                                    <input type="text" class="form-control" id="select-cantidad5" value="" required
-                                    pattern="[a-zA-Z\s]+" autofocus>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <label for="Proc">Procedimiento</label>
-                                    <textarea class="form-control" placeholder="Escribe aquí tu procedimiento" id="Proc" style="height: 100px"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-12" style="margin-top:0.3cm;">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Etiqueta 1</label>
-                                    </div>
-                                    <select class="form-control" id='select-etiqueta1'>
-                                        <option value="0" selected>Seleccionar...</option>
-                                        <option value="Favoritos">Favoritos</option>
-                                        <option value="Rapidas">Rapidas</option>
-                                        <option value="Botaniux">Botaniux</option>
-                                        <option value="niños">niños</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12" style="margin-top:0.3cm;">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Etiqueta 2</label>
-                                    </div>
-                                    <select class="form-control" id='select-etiqueta2'>
-                                        <option value="0" selected>Seleccionar...</option>
-                                        <option value="Favoritos">Favoritos</option>
-                                        <option value="Rapidas">Rapidas</option>
-                                        <option value="Botaniux">Botaniux</option>
-                                        <option value="niños">niños</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group  justify-content-center">
-                                    <label for="inputEmail4">Url</label>
-                                    <input type="text" class="form-control" id="urlcrear" value=""
-                                    pattern="[a-zA-Z\s]+" autofocus>
+                                <div class="form-group  justify-content-center was-validated" >
+                                    <label for="Nuevomedida" >Unidad de medida del ingrediente</label>
+                                    <input type="text" class="form-control" id="Nuevomedida"   required
+                                    pattern="[a-zA-Z\s]+" >
                                 </div>
                             </div>
                         </div>
@@ -498,13 +340,38 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary " id="guardcrear" data-dismiss="modal">Guardar</button>
+                    <button type="button" class="btn btn-primary " id="guardcrear" data-dismiss="modal" disabled= "true">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="borrarmodal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar ingrediente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="columns6" id="eliminaring"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="botonacepeliminar"class="btn btn-primary" data-dismiss="modal">Eliminar</button>
                 </div>
             </div>
         </div>
     </div>
 
-
+    <nav aria-label="Page" style="margin-left:1cm; margin-top: 0.5cm;">
+        <ul class="pagination">
+            
+        </ul>
+    </nav>
 
     <!-- / Desde aqui es del pie de pagina / -->
     <footer class="section footer-classic context-dark bg-image mb-0" style="background: #2d3246;">
@@ -542,21 +409,22 @@
             </div>
         </div>
     </footer>
-    <nav aria-label="Page" style="margin-left:1cm; margin-top: 0.5cm;">
-        <ul class="pagination">
-        </ul>
-    </nav>    
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="ingredientes.js"></script>
+    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+    <script src="Ingredientes.js"></script>
+
 </html>
