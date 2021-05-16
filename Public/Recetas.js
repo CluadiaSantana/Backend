@@ -158,6 +158,18 @@ window.onload = async function () {
 };
 
 function ocultar(){
+    await listing_ingredients();
+    await listing_utensilios();
+    insert_utenss("select-utensilio");
+    insert_utenss("ut1");
+    insert_utenss("ut2");
+    insert_utenss("ut3");
+    insert_ingredients("select-ingredientes");
+    insert_ingredients("select-ingredientes1");
+    insert_ingredients("select-ingredientes2");
+    insert_ingredients("select-ingredientes3");
+    insert_ingredients("select-ingredientes4");
+    insert_ingredients("select-ingredientes5");
     if (sessionStorage.us=="regular" || sessionStorage.us==null) {
         document.getElementById("crear").classList.add("oculto");
       }else{
