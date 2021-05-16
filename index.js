@@ -20,24 +20,24 @@ app.use(log, test);
 app.use(express.static(__dirname + "/Public"));
 app.use("/api/User", users);
 app.use("/api/Recipe", recipes);
-app.use("/api/Ingrediente", ingredientes);
-app.use("/api/Categoria", categorias);
+// app.use("/api/Ingrediente", ingredientes);
+// app.use("/api/Categoria", categorias);
 
 
-// app.get("/api/ingredientes", async (req, res) => {
-//   let lista = await Ingrediente.getIngredientes();
-//   res.send(lista);
-// });
+app.get("/api/ingredientes", async (req, res) => {
+  let lista = await Ingrediente.getIngredientes();
+  res.send(lista);
+});
 
 app.get("/api/Utensilio", async (req, res) => {
   let lista = await Utensilio.getUtensilio();
   res.send(lista);
 });
 
-// app.get("/api/Categoria" , async (req, res) => {
-//   let lista= await Categoria.getCategoria();
-//   res.send(lista);
-// });
+app.get("/api/Categoria" , async (req, res) => {
+  let lista= await Categoria.getCategoria();
+  res.send(lista);
+});
 
 app.get("/api/Tag" , async (req, res) => {
   let lista= await Tag.getTag();
