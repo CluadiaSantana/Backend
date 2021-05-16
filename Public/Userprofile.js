@@ -203,6 +203,10 @@ function eliminar() {
 }
 
 function cargarUsuarios() {
+  let email = "";
+  let arrayU = [];
+  if (sessionStorage.us != "admin") email = sessionStorage.email;
+
   var myHeaders = new Headers();
   myHeaders.append(
     "x-auth",
@@ -215,13 +219,15 @@ function cargarUsuarios() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/api/User", requestOptions)
+  fetch(`http://localhost:3000/api/User/${email}`, requestOptions)
     .then((response) => {
       if (response.status != 200) return err;
       return response.json();
     })
     .then((result) => {
-      usuariosToHTML(result);
+      arrayU.push(result);
+      if (sessionStorage.us != "admin") usuariosToHTML(arrayU);
+      else usuariosToHTML(result);
     });
 }
 
@@ -234,4 +240,11 @@ document
   .getElementById("confirmarPass")
   .addEventListener("click", cambiarPassword);
 
-window.onload = cargarUsuarios;
+window.onload = function () {
+  cargarUsuarios();
+  if (sessionStorage.us != "admin") {
+    document.getElementById("selectRol").classList.add("oculto");
+  } else {
+    document.getElementById("selectRol").classList.remove("oculto");
+  }
+};
