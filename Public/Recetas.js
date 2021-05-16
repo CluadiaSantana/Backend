@@ -521,7 +521,6 @@ function agregarboton(){
 
 //hace la division de los usuarios en paginas
 async function  paginado(pag){
-    ocultar();
     //si es next o previus el boton hace los calculos
     log(`pagina entregada ${numeropag}`);
     if(pag=='n'){
