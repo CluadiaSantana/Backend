@@ -129,22 +129,6 @@ function borrabotton(correo){
     }
 }
 
-// function listing(ingre){
-//     let r="";
-//     for(let i=0;i<ingre.length;i++){
-//         r+="<li>"+ingre[i].nombre+" "+ingre[i].cantidad+"</li>";
-//     }
-//     return(r);
-// }
-
-// function list(type){
-//     let r="";
-//     for(let i=0;i<type.length;i++){
-//         r+="<li>"+type[i]+"</li>";
-//     }
-//     return(r);
-// }
-
 function ingredientesListToHTML(ingredientesl){
     //limpipa la pantalla
     listaingredientes.innerText="";
@@ -156,7 +140,7 @@ function ingredientesListToHTML(ingredientesl){
 }
 
 async function actual(id){
-    let resp= await fetch(`http://127.0.0.1:3000/api/Ingrediente/${id}`,{
+    let resp= await fetch(`https://recetariodasw.herokuapp.com/api/Ingrediente/${id}`,{
         method: 'GET',
         headers:{
             'x-auth': sessionStorage.token
@@ -194,7 +178,7 @@ async function confirmacionborrar(id){
 eliminar.addEventListener("click", async function(e){
     e.preventDefault();
     id=ingredienteactual[0]._id
-    let resp= await fetch(`http://127.0.0.1:3000/api/Ingrediente/${id}`,{
+    let resp= await fetch(`https://recetariodasw.herokuapp.com/api/Ingrediente/${id}`,{
         method: 'DELETE',
         headers:{
             'x-auth': sessionStorage.token}
@@ -216,7 +200,7 @@ actualizar.addEventListener("click", async function(e){
     }
     let imp=JSON.stringify(f);
     //console.log(imp);
-    let resp= await fetch(`http://127.0.0.1:3000/api/Ingrediente/${ingredienteactual[0]._id}`,{
+    let resp= await fetch(`https://recetariodasw.herokuapp.com/api/Ingrediente/${ingredienteactual[0]._id}`,{
         method: 'PUT',
         headers:{
             'x-auth': sessionStorage.token,
@@ -254,7 +238,7 @@ guardaringrediente.addEventListener("click", async function(e){
     }
     let imp=JSON.stringify(f);
     console.log(imp);
-    let resp= await fetch(`http://127.0.0.1:3000/api/Ingrediente`,{
+    let resp= await fetch(`https://recetariodasw.herokuapp.com/api/Ingrediente`,{
         method: 'POST',
         headers:{
             'x-auth': sessionStorage.token,
