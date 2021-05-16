@@ -10,14 +10,14 @@ const Ingrediente = require("./models/Ingredientes");
 const Utensilio = require("./models/Utensilios");
 const cors = require("cors");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 
 app.use(express.json());
 
 app.use(log, test);
-app.use(express.static(__dirname + "/public/index"));
+app.use(express.static(__dirname + "/Public"));
 app.use("/api/User", users);
 app.use("/api/Recipe", recipes);
 
@@ -41,9 +41,9 @@ app.get("/api/Tag" , async (req, res) => {
   res.send(lista);
 });
 
-app.get("/", (req, res) => {
-  res.send("hola");
-});
+// app.get("/", (req, res) => {
+//   res.send("HolA");
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
