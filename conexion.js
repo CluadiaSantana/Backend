@@ -1,7 +1,7 @@
 let mongoose = require('mongoose'); //ODM  = object data model
 let config = require('./config');
 
-console.log(config.getUrl());
+//console.log(config.getUrl());
 
 mongoose.connect(config.getUrl(), {
     useNewUrlParser: true,

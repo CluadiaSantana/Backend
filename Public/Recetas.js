@@ -15,7 +15,7 @@ let actualizar=document.querySelector('#Actualizar');
 //boton crear nueva receta
 let guardarrecer=document.querySelector('#guardcrear');
 //saber si existe un filtro para el paginado
-let filtro;
+let filtro="";
 //hacer el paginado , los botones no funcionan y poner la variable filtro en la funcion buscar y en la funcion de load
 let ingred;
 let utens;
@@ -129,32 +129,26 @@ async function listing_ingredients() {
   document.getElementById("buscar").addEventListener("click", buscar);
 
 window.onload = async function () {
-    await listing_ingredients();
+    await actingredientes()
     await listing_utensilios();
     insert_utenss("select-utensilio");
     insert_utenss("ut1");
     insert_utenss("ut2");
     insert_utenss("ut3");
-    insert_ingredients("select-ingredientes");
-    insert_ingredients("select-ingredientes1");
-    insert_ingredients("select-ingredientes2");
-    insert_ingredients("select-ingredientes3");
-    insert_ingredients("select-ingredientes4");
-    insert_ingredients("select-ingredientes5");
+    
 
-    if (sessionStorage.us=="regular" || sessionStorage.us==null) {
+    if (sessionStorage.us=="regular" || sessionStorage.us=="null") {
       document.getElementById("crear").classList.add("oculto");
     }else{
         document.getElementById("crear").classList.remove("oculto");
     }
-    if (sessionStorage.token!=null) {
+    if (sessionStorage.token!="null") {
         document.getElementById("Linkreg").classList.add("oculto");
         document.getElementById("login").innerText="logout";
     }else{
         document.getElementById("Linkreg").classList.remove("oculto");
         document.getElementById("login").innerText="login";
     }
-    
 };
 
 
@@ -224,17 +218,33 @@ function recipeToHtml(recipe){
     alt="" width="140">
     </td>
     <td width="50px">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
+        <div class="btn-group" role="group" aria-label="Basic example" >
+            <a href="Login.html" id="nobotones">${linklog()}</a>
+            <a onclick="verdetalle('${recipe._id}')" class="btn-sm  btn-success text-center ${verbotton()}" href="" data-toggle="modal" data-dismiss="modal" data-target="#ver" ><i class="far fa-eye"></i> ver</a>
             <a onclick="editarrect('${recipe._id}')" class="btn-sm btn-primary text-center ${editarbotton(recipe.correo)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#detalleEditar" ><i class="far fa-fw fa-edit"></i> Editar</a>
-            <a onclick="confirmacionborrar('${recipe._id}')" class="confirmation btn-sm btn-danger text-center ${borrabotton(recipe)}" href="" data-toggle="modal" data-dismiss="modal" data-target="#borrarmodal"  ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
+            <a onclick="confirmacionborrar('${recipe._id}')" class="confirmation btn-sm btn-danger text-center ${borrabotton()}" href="" data-toggle="modal" data-dismiss="modal" data-target="#borrarmodal"  ><i class="far fa-fw fa-trash-alt"></i> Eliminar</a>
         </div>
     </td>
     </tr>
     `
 }
+function linklog(){
+    if(sessionStorage.us=="null"){
+        return(`Ingresa para ver la reseta`);  
+    }else{
+        return("");
+    }
+}
+function verbotton(){
+    if(sessionStorage.us=="null"){
+        // document.querySelector('#nobotones').innerText=`Ingresa para ver la reseta`;
+        return("oculto")
+    }else{
+        return;
+    }
+}
 function editarbotton(correo){
-    if(sessionStorage.us=="regular" || sessionStorage.us==null){
+    if(sessionStorage.us=="regular" || sessionStorage.us=="null"){
         return("oculto")
     }else if(sessionStorage.us=="chef"){
         if((sessionStorage.email).toUpperCase()==correo.toUpperCase()){
@@ -244,10 +254,9 @@ function editarbotton(correo){
         }
     }else{
         return;
-    }
-    
+    }  
 }
-function borrabotton(correo){
+function borrabotton(){
     if(sessionStorage.us!="admin"){
         return("oculto")
     }else{
@@ -404,14 +413,14 @@ actualizar.addEventListener("click", async function(e){
         "url":edi.querySelector('#editurl').value,
         "correo":recetaactual[0].correo
     }
-    let imp=JSON.stringify(f);
+    //let imp=JSON.stringify(f);
     //console.log(imp);
     let resp= await fetch(`${sessionStorage.host}/api/Recipe/${recetaactual[0]._id}`,{
         method: 'PUT',
         headers:{
             'x-auth': sessionStorage.token,
             'Content-Type': 'application/json'},
-        body: imp
+        body: JSON.stringify(f)
     });
     //console.log(resp.status);
     if(resp.status==200){
@@ -546,4 +555,13 @@ async function  paginado(pag){
 
 }
 
+async function actingredientes(){
+    await listing_ingredients();
+    insert_ingredients("select-ingredientes");
+    insert_ingredients("select-ingredientes1");
+    insert_ingredients("select-ingredientes2");
+    insert_ingredients("select-ingredientes3");
+    insert_ingredients("select-ingredientes4");
+    insert_ingredients("select-ingredientes5");
+}
 paginado(0);

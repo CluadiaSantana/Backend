@@ -2,6 +2,7 @@ sessionStorage.token;
 sessionStorage.us;
 sessionStorage.email;
 
+
 //logear usuario
 let datos=document.querySelector('#datoslogin');
 let entrar=datos.querySelector('#Entrar');

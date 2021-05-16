@@ -1,9 +1,8 @@
 const router = require("express").Router();
 const fs = require('fs')
 const path = require('path')
-const Ingrediente = require("./models/Ingrediente");
+const Ingrediente = require("./models/NuevoIngre");
 const jwt = require("jsonwebtoken");
-const { route } = require("./users");
 const { restart } = require("nodemon");
 const { test } = require("./middlewares/logs");
 

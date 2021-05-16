@@ -1,6 +1,4 @@
-"use strict";
-sessionStorage.host="https://recetariodasw.herokuapp.com"
-
+sessionStorage.host=`http://localhost:3000`;//"https://recetariodasw.herokuapp.com";
 async function listing_ingredients() {
   let ingred = await fetch(`${sessionStorage.host}/api/ingredientes`, {
     method: "GET",
