@@ -71,7 +71,7 @@ async function load(){
     }
     // log(`busqueda despues ${string}`);
     //pedir los datos con fetch
-    let resp= await fetch(`https://recetariodasw.herokuapp.com/api/Ingredientes`,{
+    let resp= await fetch(`https://recetariodasw.herokuapp.com/api/Ingrediente?sk=${sk}${filtro}`,{
         method: 'GET',
         headers:{
             'x-auth': sessionStorage.token
