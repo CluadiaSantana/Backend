@@ -92,27 +92,22 @@ async function listing_ingredients() {
     let ingrediente = document.getElementById("select-ingredientes").value;
     if (ingrediente ) string += `ingredientes=${ingrediente}`
     //log("aqui estoy");
-  
     let utensilio = document.getElementById("select-utensilio").value;
     if(utensilio){
       if(string.length>1){
         string += `&utencilios=${utensilio}`
       }
       else
-        string+=`utencilios=${utensilio}`
-        
+        string+=`utencilios=${utensilio}`   
     }
-  
     let categoria = document.getElementById("select-categorias").value;
     if(categoria!=0){
       if(string.length>1){
         string += `&categoria=${categoria}`
       }
       else
-        string+=`categoria=${categoria}`
-        
+        string+=`categoria=${categoria}`   
     }
-  
     let etiqueta = document.getElementById("select-etiqueta").value;
     if(etiqueta!=0){
       if(string.length>1){
